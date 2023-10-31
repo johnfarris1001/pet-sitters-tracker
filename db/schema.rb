@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_214010) do
+ActiveRecord::Schema.define(version: 2023_10_31_002700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 2023_10_20_214010) do
     t.bigint "sitter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["pet_id"], name: "index_appointments_on_pet_id"
     t.index ["sitter_id"], name: "index_appointments_on_sitter_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -37,6 +39,8 @@ ActiveRecord::Schema.define(version: 2023_10_20_214010) do
     t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
   create_table "sitters", force: :cascade do |t|
@@ -50,6 +54,15 @@ ActiveRecord::Schema.define(version: 2023_10_20_214010) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "appointments", "pets"
   add_foreign_key "appointments", "sitters"
+  add_foreign_key "appointments", "users"
+  add_foreign_key "pets", "users"
 end

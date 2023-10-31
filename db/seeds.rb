@@ -1,11 +1,17 @@
+# Users
+
+5.times do
+    User.create(username: Faker::Name.first_name, password_digest: BCrypt::Password.create('password'))
+end
+
 # Pets
 
 5.times do
-    Pet.create(name: Faker::Creature::Cat.name, species: "Cat", breed: Faker::Creature::Cat.breed, weight: rand(6..15), age: rand(1..15), notes: Faker::Lorem.paragraph)
+    Pet.create(name: Faker::Creature::Cat.name, species: "Cat", breed: Faker::Creature::Cat.breed, weight: rand(6..15), age: rand(1..15), notes: Faker::Lorem.paragraph, user: User.all.sample)
 end
 
 5.times do 
-    Pet.create(name: Faker::Creature::Dog.name, species: "Dog", breed: Faker::Creature::Dog.breed, weight: rand(10..150), age: rand(1..15), notes: Faker::Lorem.paragraph)
+    Pet.create(name: Faker::Creature::Dog.name, species: "Dog", breed: Faker::Creature::Dog.breed, weight: rand(10..150), age: rand(1..15), notes: Faker::Lorem.paragraph, user: User.all.sample)
 end
 
 # Sitters
@@ -17,5 +23,6 @@ end
 # Appointments
 
 20.times do
-    Appointment.create(category: ["Drop-in 1/2-hr", "Drop-in 1-hr", "House Sit", "Walk 1/2-hr", "Walk 1-hr", "Boarding", "Grooming", "Play Date"].sample, start_date: Faker::Date.between(from: '2023-09-01', to: '2023-10-31'), days: rand(0..7), notes: Faker::Lorem.paragraph, pet: Pet.all.sample, sitter: Sitter.all.sample)
+    pet = Pet.all.sample
+    Appointment.create(category: ["Drop-in 1/2-hr", "Drop-in 1-hr", "House Sit", "Walk 1/2-hr", "Walk 1-hr", "Boarding", "Grooming", "Play Date"].sample, start_date: Faker::Date.between(from: '2023-09-01', to: '2023-10-31'), days: rand(0..7), notes: Faker::Lorem.paragraph, pet: pet, sitter: Sitter.all.sample, user: pet.user)
 end
