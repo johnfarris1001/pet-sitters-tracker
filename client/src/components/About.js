@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 function About() {
     return (
         <div>
+            <br />
             <NavBar />
             <br />
             About

@@ -5,6 +5,7 @@ import Appointments from "./Appointments";
 function App() {
     return (
         <div className="App">
+            <br />
             <NavBar />
             <br />
             Home
