@@ -6,6 +6,7 @@ import App from "./components/App";
 import About from "./components/About";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
+import SignUp from "./components/SignUp";
 import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     {
         path: "/appointments",
         element: <Appointments />,
+    },
+    {
+        path: "/signup",
+        element: <SignUp />,
     },
 ]);
 
