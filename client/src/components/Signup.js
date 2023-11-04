@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
-import NavBar from "./NavBar";
-
 function SignUp({ onLogin }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -27,9 +25,6 @@ function SignUp({ onLogin }) {
 
     return (
         <div>
-            <br />
-            <NavBar />
-            <br />
             <Form
                 style={{
                     width: "80%",
