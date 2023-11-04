@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/users', to: 'users#index'
-
+  
   resources :appointments, only: [:index, :show, :create, :update, :destroy]
   resources :sitters, only: [:index, :show, :create]
   resources :pets, only: [:index, :show, :create]

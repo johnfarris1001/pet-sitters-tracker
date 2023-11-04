@@ -2,35 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import App from "./components/App";
-import About from "./components/About";
-import Login from "./components/Login";
-import Appointments from "./components/Appointments";
-import SignUp from "./components/SignUp";
+import routes from "./routes";
 import reportWebVitals from "./reportWebVitals";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-    },
-    {
-        path: "/about",
-        element: <About />,
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
-    {
-        path: "/appointments",
-        element: <Appointments />,
-    },
-    {
-        path: "/signup",
-        element: <SignUp />,
-    },
-]);
+const router = createBrowserRouter(routes);
 
 ReactDOM.render(
     <React.StrictMode>
