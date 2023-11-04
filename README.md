@@ -8,5 +8,6 @@ On this web application you can:
 2. Log in, remain logged in, log out
 3. Add a name and bio to your profile
 4. Add, view, and delete your pets
-5. View a list of available sitters, add sitters
+5. View a list of available sitters
 6. Book, change, and delete appointments
+7. Admin account to create and edit
