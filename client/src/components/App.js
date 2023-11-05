@@ -17,9 +17,11 @@ function App() {
     }, [setUser]);
 
     function handleLogout() {
-        fetch("/logout", {
-            method: "DELETE",
-        }).then(() => setUser(null));
+        if (user) {
+            fetch("/logout", {
+                method: "DELETE",
+            }).then(() => setUser(null));
+        }
     }
 
     return (
@@ -28,7 +30,9 @@ function App() {
             <NavBar />
             <br />
             <h4>
-                You are Logged in as: {user ? user.username : "Not Logged In"}
+                {user
+                    ? `You are Logged in as:  ${user.username}`
+                    : `You are not Logged in`}
             </h4>
             <button onClick={handleLogout}>Logout</button>
             <Outlet />
