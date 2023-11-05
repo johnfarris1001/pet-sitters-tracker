@@ -3,11 +3,13 @@ import About from "./components/About";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
 import SignUp from "./components/SignUp";
+import ErrorPage from "./components/ErrorPage";
 
 const routes = [
     {
         path: "/",
         element: <App />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/about",
