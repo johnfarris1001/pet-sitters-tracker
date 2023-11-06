@@ -1,14 +1,11 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
-
-import { UserContext } from "../contexts/UserContext";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const { setUser } = useContext(UserContext);
-    const navigate = useNavigate();
+    const onLogin = useOutletContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -24,11 +21,6 @@ function Login() {
         })
             .then((r) => r.json())
             .then((user) => onLogin(user));
-    }
-
-    function onLogin(user) {
-        setUser(user);
-        navigate("/");
     }
 
     return (

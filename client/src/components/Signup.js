@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 
-function SignUp({ onLogin }) {
+function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const onLogin = useOutletContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -20,7 +22,7 @@ function SignUp({ onLogin }) {
             }),
         })
             .then((r) => r.json())
-            .then(onLogin);
+            .then((user) => onLogin(user));
     }
 
     return (

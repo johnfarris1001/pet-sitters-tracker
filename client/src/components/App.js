@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 
@@ -7,6 +7,7 @@ import NavBar from "./NavBar";
 
 function App() {
     const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("/me").then((resp) => {
@@ -15,6 +16,11 @@ function App() {
             }
         });
     }, [setUser]);
+
+    const onLogin = (user) => {
+        setUser(user);
+        navigate("/");
+    };
 
     function handleLogout() {
         if (user) {
@@ -35,7 +41,7 @@ function App() {
                     : `You are not Logged in`}
             </h4>
             <button onClick={handleLogout}>Logout</button>
-            <Outlet />
+            <Outlet context={onLogin} />
         </div>
     );
 }
