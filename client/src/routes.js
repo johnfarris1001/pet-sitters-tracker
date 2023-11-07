@@ -1,5 +1,5 @@
 import App from "./components/App";
-import About from "./components/About";
+import Pets from "./components/Pets";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
 import SignUp from "./components/SignUp";
@@ -12,8 +12,8 @@ const routes = [
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "/about",
-                element: <About />,
+                path: "/pets",
+                element: <Pets />,
             },
             {
                 path: "/login",

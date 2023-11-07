@@ -1,6 +1,7 @@
 class PetsController < ApplicationController
     def index
-        pets = Pet.all
+        user = User.find_by(id: session[:user_id])
+        pets = user.pets
         render json: pets
     end
 

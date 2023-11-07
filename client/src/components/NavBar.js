@@ -15,14 +15,14 @@ function NavBar() {
             <NavLink to="/" style={linkStyles}>
                 Home
             </NavLink>
-            <NavLink to="/about" style={linkStyles}>
-                About
-            </NavLink>
             <NavLink to="/login" style={linkStyles}>
                 Login
             </NavLink>
             <NavLink to="/signup" style={linkStyles}>
                 SignUp
+            </NavLink>
+            <NavLink to="/pets" style={linkStyles}>
+                Pets
             </NavLink>
             <NavLink to="/appointments" style={linkStyles}>
                 Appointments
