@@ -7,8 +7,8 @@ function NewPetForm({ addPet, showNewPetForm, setShowNewPetForm }) {
         species: "",
         breed: "",
         weight: "",
-        age: 0,
-        notes: 0,
+        age: "",
+        notes: "",
     });
 
     function handleNewPet(e) {

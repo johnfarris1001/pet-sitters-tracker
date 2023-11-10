@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { Table } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import Pet from "./Pet";
+import NewPetForm from "./NewPetForm";
 
 function Pets() {
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
+    const [showNewPetForm, setShowNewPetForm] = useState(false);
 
     useEffect(() => {
         fetch("/pets")
@@ -13,8 +15,14 @@ function Pets() {
             .then((data) => setPets(data));
     }, [setPets]);
 
+    function addPet(newPet) {
+        setPets([...pets, newPet]);
+    }
+
     const title = user ? `${user.username}'s Pets` : "Log in to view Pets";
-    const style = user ? { width: "80%", margin: "auto" } : { display: "none" };
+    const style = user
+        ? { width: "80%", margin: "auto", padding: "20px" }
+        : { display: "none" };
 
     const petsToDisplay = pets.map((pet) => {
         return <Pet key={pet.id} pet={pet} />;
@@ -23,6 +31,16 @@ function Pets() {
     return (
         <div>
             <h2>{title}</h2>
+            <div style={{ padding: "10px" }}>
+                <Button onClick={() => setShowNewPetForm(!showNewPetForm)}>
+                    {showNewPetForm ? "Cancel" : "Add New Pet!"}
+                </Button>
+            </div>
+            <NewPetForm
+                addPet={addPet}
+                showNewPetForm={showNewPetForm}
+                setShowNewPetForm={setShowNewPetForm}
+            />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>
