@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Table, Form, Button } from "semantic-ui-react";
+import { useState, useEffect } from "react";
+import { Table, Button } from "semantic-ui-react";
+import NewSitterForm from "./NewSitterForm";
 
 function Sitters() {
     const [sitters, setSitters] = useState([]);
     const [showNewSitterForm, setShowNewSitterForm] = useState(false);
-    const [newSitterInfo, setNewSitterInfo] = useState({
-        name: "",
-        has_home_with_yard: true,
-        phone_number: "",
-        address: "",
-        own_dogs: 0,
-        own_cats: 0,
-    });
 
     useEffect(() => {
         fetch("/sitters")
@@ -19,29 +12,11 @@ function Sitters() {
             .then((data) => setSitters(data));
     }, [setSitters]);
 
-    function handleNewSitter(e) {
-        e.preventDefault();
-        fetch(`/sitters`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newSitterInfo),
-        })
-            .then((r) => r.json())
-            .then((data) => addSitter(data));
-        setShowNewSitterForm(false);
-    }
-
     function addSitter(newSitter) {
         setSitters([...sitters, newSitter]);
     }
 
-    const style = { width: "80%", margin: "auto" };
-
-    const newSitterDisplay = showNewSitterForm
-        ? { width: "50%", margin: "auto", padding: "10px", border: "solid" }
-        : { display: "none" };
+    const style = { width: "80%", margin: "auto", padding: "20px" };
 
     const sittersToDisplay = sitters.map((sitter) => {
         return (
@@ -61,103 +36,18 @@ function Sitters() {
     return (
         <div>
             <h2>Sitters</h2>
-            <div style={{ padding: "20px" }}>
+            <div style={{ padding: "10px" }}>
                 <Button
                     onClick={() => setShowNewSitterForm(!showNewSitterForm)}
                 >
                     {showNewSitterForm ? "Cancel" : "Add New Sitter!"}
                 </Button>
             </div>
-            <Form style={newSitterDisplay} onSubmit={handleNewSitter}>
-                <Form.Group>
-                    <Form.Field>
-                        <label>Name: </label>
-                        <input
-                            value={newSitterInfo.name}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    name: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Form.Group inline>
-                        <label>Has Yard At Home?</label>
-                        <Form.Radio
-                            label="Yes"
-                            checked={newSitterInfo.has_home_with_yard === true}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    has_home_with_yard:
-                                        !newSitterInfo.has_home_with_yard,
-                                })
-                            }
-                        />
-                        <Form.Radio
-                            label="No"
-                            checked={newSitterInfo.has_home_with_yard === false}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    has_home_with_yard:
-                                        !newSitterInfo.has_home_with_yard,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <Form.Field>
-                        <label>Phone Number: </label>
-                        <input
-                            value={newSitterInfo.phone_number}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    phone_number: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Address: </label>
-                        <input
-                            value={newSitterInfo.address}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    address: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Number of Dogs: </label>
-                        <input
-                            value={newSitterInfo.own_dogs}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    own_dogs: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Form.Field>
-                        <label>Number of Cats: </label>
-                        <input
-                            value={newSitterInfo.own_cats}
-                            onChange={(e) =>
-                                setNewSitterInfo({
-                                    ...newSitterInfo,
-                                    own_cats: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Field>
-                    <Button>Submit</Button>
-                </Form.Group>
-            </Form>
+            <NewSitterForm
+                addSitter={addSitter}
+                showNewSitterForm={showNewSitterForm}
+                setShowNewSitterForm={setShowNewSitterForm}
+            />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>
