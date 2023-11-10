@@ -24,6 +24,9 @@ function NavBar() {
             <NavLink to="/pets" style={linkStyles}>
                 Pets
             </NavLink>
+            <NavLink to="/sitters" style={linkStyles}>
+                Sitters
+            </NavLink>
             <NavLink to="/appointments" style={linkStyles}>
                 Appointments
             </NavLink>

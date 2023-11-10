@@ -3,6 +3,7 @@ import Pets from "./components/Pets";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
 import SignUp from "./components/SignUp";
+import Sitters from "./components/Sitters";
 import ErrorPage from "./components/ErrorPage";
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
             {
                 path: "/signup",
                 element: <SignUp />,
+            },
+            {
+                path: "/sitters",
+                element: <Sitters />,
             },
         ],
     },
