@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Form, Button } from "semantic-ui-react";
 
 function Sitters() {
@@ -37,11 +37,6 @@ function Sitters() {
         setSitters([...sitters, newSitter]);
     }
 
-    const options = [
-        { key: "y", text: "Yes", value: true },
-        { key: "n", text: "No", value: false },
-    ];
-
     const style = { width: "80%", margin: "auto" };
 
     const newSitterDisplay = showNewSitterForm
@@ -62,8 +57,6 @@ function Sitters() {
             </Table.Row>
         );
     });
-
-    console.log(newSitterInfo.has_home_with_yard);
 
     return (
         <div>
@@ -89,18 +82,31 @@ function Sitters() {
                             }
                         />
                     </Form.Field>
-                    <Form.Select
-                        value={newSitterInfo.has_home_with_yard}
-                        label="Has Yard At Home?"
-                        options={options}
-                        onChange={(e) =>
-                            setNewSitterInfo({
-                                ...newSitterInfo,
-                                has_home_with_yard: e.target.value,
-                            })
-                        }
-                        placeholder="Yes"
-                    />
+                    <Form.Group inline>
+                        <label>Has Yard At Home?</label>
+                        <Form.Radio
+                            label="Yes"
+                            checked={newSitterInfo.has_home_with_yard === true}
+                            onChange={(e) =>
+                                setNewSitterInfo({
+                                    ...newSitterInfo,
+                                    has_home_with_yard:
+                                        !newSitterInfo.has_home_with_yard,
+                                })
+                            }
+                        />
+                        <Form.Radio
+                            label="No"
+                            checked={newSitterInfo.has_home_with_yard === false}
+                            onChange={(e) =>
+                                setNewSitterInfo({
+                                    ...newSitterInfo,
+                                    has_home_with_yard:
+                                        !newSitterInfo.has_home_with_yard,
+                                })
+                            }
+                        />
+                    </Form.Group>
                     <Form.Field>
                         <label>Phone Number: </label>
                         <input
