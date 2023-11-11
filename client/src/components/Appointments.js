@@ -39,7 +39,8 @@ function Appointments() {
                         <Table.HeaderCell>Sitter</Table.HeaderCell>
                         <Table.HeaderCell>Date</Table.HeaderCell>
                         <Table.HeaderCell>Repeat Days</Table.HeaderCell>
-                        <Table.HeaderCell width={4}>Notes</Table.HeaderCell>
+                        <Table.HeaderCell>Notes</Table.HeaderCell>
+                        <Table.HeaderCell>Update/Delete</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>{appointmentsToDisplay}</Table.Body>
