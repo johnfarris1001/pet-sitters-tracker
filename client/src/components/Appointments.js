@@ -20,9 +20,13 @@ function Appointments() {
 
     const style = user ? { width: "80%", margin: "auto" } : { display: "none" };
 
-    const appointmentsToDisplay = appointments.map((appointment) => {
-        return <Appointment key={appointment.id} appointment={appointment} />;
-    });
+    const appointmentsToDisplay = user
+        ? appointments.map((appointment) => {
+              return (
+                  <Appointment key={appointment.id} appointment={appointment} />
+              );
+          })
+        : null;
 
     return (
         <div>
