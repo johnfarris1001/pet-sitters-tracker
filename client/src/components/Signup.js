@@ -27,6 +27,7 @@ function SignUp() {
 
     return (
         <div>
+            <br />
             <Form
                 style={{
                     width: "80%",
@@ -38,7 +39,7 @@ function SignUp() {
             >
                 <Form.Group>
                     <Form.Field>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username">Username: </label>
                         <input
                             type="text"
                             id="username"
@@ -47,7 +48,7 @@ function SignUp() {
                         />
                     </Form.Field>
                     <Form.Field>
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">Password: </label>
                         <input
                             type="password"
                             id="password"
@@ -57,7 +58,7 @@ function SignUp() {
                     </Form.Field>
                     <Form.Field>
                         <label htmlFor="password_confirmation">
-                            Confirm Password:
+                            Confirm Password:{" "}
                         </label>
                         <input
                             type="password"

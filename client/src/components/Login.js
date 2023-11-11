@@ -5,6 +5,7 @@ import { Form, Button } from "semantic-ui-react";
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const onLogin = useOutletContext();
 
     function handleSubmit(e) {
@@ -20,7 +21,15 @@ function Login() {
             }),
         })
             .then((r) => r.json())
-            .then((user) => onLogin(user));
+            .then((user) => {
+                if (user.error) {
+                    setUsername("");
+                    setPassword("");
+                    setErrorMessage("Incorrect Username or Password");
+                } else {
+                    onLogin(user);
+                }
+            });
     }
 
     return (
@@ -50,6 +59,7 @@ function Login() {
                 />
             </Form.Field>
             <Button type="submit">Login</Button>
+            <h4>{errorMessage}</h4>
         </Form>
     );
 }
