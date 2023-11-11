@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
-function NewPetForm({ addPet, showNewPetForm, setShowNewPetForm }) {
+function NewPetForm({ addPet, user, showNewPetForm, setShowNewPetForm }) {
     const [newPetInfo, setNewPetInfo] = useState({
         name: "",
         species: "",
@@ -13,12 +13,13 @@ function NewPetForm({ addPet, showNewPetForm, setShowNewPetForm }) {
 
     function handleNewPet(e) {
         e.preventDefault();
+        const newPet = { ...newPetInfo, user_id: user.id };
         fetch(`/pets`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newPetInfo),
+            body: JSON.stringify(newPet),
         })
             .then((r) => r.json())
             .then((data) => addPet(data));

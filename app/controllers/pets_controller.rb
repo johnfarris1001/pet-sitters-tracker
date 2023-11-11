@@ -13,6 +13,6 @@ class PetsController < ApplicationController
     private
 
     def pet_params
-        params.permit(:name, :species, :breed, :weight, :age, :notes)
+        params.permit(:name, :species, :breed, :weight, :age, :notes, :user_id)
     end
 end

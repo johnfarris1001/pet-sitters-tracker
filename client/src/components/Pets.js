@@ -38,6 +38,7 @@ function Pets() {
             </div>
             <NewPetForm
                 addPet={addPet}
+                user={user}
                 showNewPetForm={showNewPetForm}
                 setShowNewPetForm={setShowNewPetForm}
             />
