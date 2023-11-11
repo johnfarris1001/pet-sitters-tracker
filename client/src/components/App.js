@@ -27,6 +27,8 @@ function App() {
             fetch("/logout", {
                 method: "DELETE",
             }).then(() => setUser(null));
+        } else {
+            navigate("/login");
         }
     }
 
@@ -40,12 +42,7 @@ function App() {
                     ? `You are Logged in as:  ${user.username}`
                     : `You are not Logged in`}
             </h4>
-            <button
-                style={user ? {} : { display: "none" }}
-                onClick={handleLogout}
-            >
-                Logout
-            </button>
+            <button onClick={handleLogout}>{user ? "Logout" : "Login"}</button>
             <Outlet context={onLogin} />
         </div>
     );

@@ -15,9 +15,6 @@ function NavBar() {
             <NavLink to="/" style={linkStyles}>
                 Home
             </NavLink>
-            <NavLink to="/login" style={linkStyles}>
-                Login
-            </NavLink>
             <NavLink to="/signup" style={linkStyles}>
                 SignUp
             </NavLink>

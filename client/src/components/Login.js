@@ -33,34 +33,37 @@ function Login() {
     }
 
     return (
-        <Form
-            style={{
-                width: "40%",
-                margin: "auto",
-                padding: "10px",
-                border: "solid",
-            }}
-            onSubmit={handleSubmit}
-        >
-            <Form.Field>
-                <label>Username: </label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </Form.Field>
-            <Form.Field>
-                <label>Password: </label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </Form.Field>
-            <Button type="submit">Login</Button>
-            <h4>{errorMessage}</h4>
-        </Form>
+        <div>
+            <br />
+            <Form
+                style={{
+                    width: "40%",
+                    margin: "auto",
+                    padding: "10px",
+                    border: "solid",
+                }}
+                onSubmit={handleSubmit}
+            >
+                <Form.Field>
+                    <label>Username: </label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </Form.Field>
+                <Button type="submit">Login</Button>
+                <h6>{errorMessage}</h6>
+            </Form>
+        </div>
     );
 }
 
