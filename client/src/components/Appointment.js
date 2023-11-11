@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Table, Button } from "semantic-ui-react";
 
-function Appointment({ appointment }) {
+function Appointment({ appointment, removeAppointment }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
 
@@ -10,11 +10,11 @@ function Appointment({ appointment }) {
             setConfirmDelete(true);
             return;
         }
-        // fetch(`${server}/plants/${plant.id}`, {
-        //     method: "DELETE",
-        // })
-        //     .then((r) => r.json())
-        //     .then(() => removePlant(plant));
+        fetch(`/appointments/${appointment.id}`, {
+            method: "DELETE",
+        })
+            .then((r) => r.json())
+            .then(() => removeAppointment(appointment.id));
     }
 
     function handleUpdate() {

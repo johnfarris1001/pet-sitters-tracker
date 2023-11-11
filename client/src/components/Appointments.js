@@ -14,6 +14,13 @@ function Appointments() {
             .then((data) => setAppointments(data));
     }, [setAppointments]);
 
+    function removeAppointment(id) {
+        const newAppointments = appointments.filter((app) => {
+            return app.id !== id;
+        });
+        setAppointments(newAppointments);
+    }
+
     const title = user
         ? `${user.username}'s Appointments`
         : "Log in to view Appointments";
@@ -23,13 +30,18 @@ function Appointments() {
     const appointmentsToDisplay = user
         ? appointments.map((appointment) => {
               return (
-                  <Appointment key={appointment.id} appointment={appointment} />
+                  <Appointment
+                      key={appointment.id}
+                      appointment={appointment}
+                      removeAppointment={removeAppointment}
+                  />
               );
           })
         : null;
 
     return (
         <div>
+            <br />
             <h2>{title}</h2>
             <Table celled structured style={style}>
                 <Table.Header>
