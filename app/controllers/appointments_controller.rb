@@ -14,4 +14,16 @@ class AppointmentsController < ApplicationController
             render json: { error: "Appointment not found" }, status: :not_found
         end
     end
+
+    def create
+        appointment = Appointment.create(appointment_params)
+        render json: appointment, status: :created
+    end
+
+    private
+
+    def appointment_params
+        params.permit(:category, :start_date, :days, :notes, :pet_id, :sitter_id, :user_id)
+    end
+
 end

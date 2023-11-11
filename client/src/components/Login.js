@@ -25,7 +25,10 @@ function Login() {
                 if (user.error) {
                     setUsername("");
                     setPassword("");
-                    setErrorMessage("Incorrect Username or Password");
+                    setErrorMessage("Incorrect Username");
+                } else if (user.errors) {
+                    setPassword("");
+                    setErrorMessage("Incorrect Password");
                 } else {
                     onLogin(user);
                 }
@@ -61,7 +64,7 @@ function Login() {
                     />
                 </Form.Field>
                 <Button type="submit">Login</Button>
-                <h6>{errorMessage}</h6>
+                <h5 style={{ color: "red" }}>{errorMessage}</h5>
             </Form>
         </div>
     );

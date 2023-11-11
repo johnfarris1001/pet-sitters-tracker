@@ -3,7 +3,6 @@ import { Table, Button } from "semantic-ui-react";
 
 function Appointment({ appointment, removeAppointment }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
-    const [showUpdate, setShowUpdate] = useState(false);
 
     function handleDelete() {
         if (!confirmDelete) {
@@ -16,10 +15,6 @@ function Appointment({ appointment, removeAppointment }) {
     }
 
     function handleUpdate() {
-        if (!showUpdate) {
-            setShowUpdate(true);
-            return;
-        }
         // fetch(`${server}/plants/${plant.id}`, {
         //     method: "PATCH",
         //     headers: {
@@ -32,7 +27,6 @@ function Appointment({ appointment, removeAppointment }) {
         // })
         //     .then((r) => r.json())
         //     .then((data) => updatePlant(data));
-        setShowUpdate(false);
     }
 
     return (
@@ -44,9 +38,7 @@ function Appointment({ appointment, removeAppointment }) {
             <Table.Cell>{appointment.days}</Table.Cell>
             <Table.Cell>{appointment.notes}</Table.Cell>
             <Table.Cell>
-                <Button onClick={handleUpdate}>
-                    {showUpdate ? "Submit" : "Update"}
-                </Button>
+                <Button onClick={handleUpdate}>Edit</Button>
                 <Button onClick={handleDelete}>
                     {confirmDelete ? "Confirm Delete" : "Delete"}
                 </Button>
