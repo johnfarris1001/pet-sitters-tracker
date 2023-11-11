@@ -1,6 +1,6 @@
 class SittersController < ApplicationController
     def index
-        sitters = Sitter.all
+        sitters = Sitter.all.order(name: :asc)
         render json: sitters
     end
 
