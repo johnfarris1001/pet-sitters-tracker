@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Table, Button } from "semantic-ui-react";
 import Pet from "./Pet";
-import NewPetForm from "./NewPetForm";
+import NewPetForm from "./forms/NewPetForm";
 
 function Pets() {
     const { user } = useContext(UserContext);

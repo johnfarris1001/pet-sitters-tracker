@@ -5,6 +5,7 @@ import Appointments from "./components/Appointments";
 import SignUp from "./components/SignUp";
 import Sitters from "./components/Sitters";
 import ErrorPage from "./components/ErrorPage";
+import NewAppointmentForm from "./components/forms/NewAppointmentForm";
 
 const routes = [
     {

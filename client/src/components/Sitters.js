@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Table, Button } from "semantic-ui-react";
-import NewSitterForm from "./NewSitterForm";
+import NewSitterForm from "./forms/NewSitterForm";
 
 function Sitters() {
     const [sitters, setSitters] = useState([]);
