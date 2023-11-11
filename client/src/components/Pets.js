@@ -24,14 +24,16 @@ function Pets() {
         ? { width: "80%", margin: "auto", padding: "20px" }
         : { display: "none" };
 
-    const petsToDisplay = pets.map((pet) => {
-        return <Pet key={pet.id} pet={pet} />;
-    });
+    const petsToDisplay = user
+        ? pets.map((pet) => {
+              return <Pet key={pet.id} pet={pet} />;
+          })
+        : null;
 
     return (
         <div>
             <h2>{title}</h2>
-            <div style={{ padding: "10px" }}>
+            <div style={user ? { padding: "10px" } : { display: "none" }}>
                 <Button onClick={() => setShowNewPetForm(!showNewPetForm)}>
                     {showNewPetForm ? "Cancel" : "Add New Pet!"}
                 </Button>

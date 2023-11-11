@@ -40,7 +40,12 @@ function App() {
                     ? `You are Logged in as:  ${user.username}`
                     : `You are not Logged in`}
             </h4>
-            <button onClick={handleLogout}>Logout</button>
+            <button
+                style={user ? {} : { display: "none" }}
+                onClick={handleLogout}
+            >
+                Logout
+            </button>
             <Outlet context={onLogin} />
         </div>
     );
