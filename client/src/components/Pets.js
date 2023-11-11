@@ -10,10 +10,14 @@ function Pets() {
     const [showNewPetForm, setShowNewPetForm] = useState(false);
 
     useEffect(() => {
-        fetch("/pets")
-            .then((resp) => resp.json())
-            .then((data) => setPets(data));
-    }, [setPets]);
+        if (user) {
+            fetch("/pets")
+                .then((resp) => resp.json())
+                .then((data) => {
+                    setPets(data);
+                });
+        }
+    }, [setPets, user]);
 
     function addPet(newPet) {
         setPets([...pets, newPet]);

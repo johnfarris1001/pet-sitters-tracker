@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 
@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 function App() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetch("/me").then((resp) => {
@@ -22,7 +23,7 @@ function App() {
         navigate("/");
     };
 
-    function handleLogout() {
+    function handleClick() {
         if (user) {
             fetch("/logout", {
                 method: "DELETE",
@@ -42,7 +43,14 @@ function App() {
                     ? `You are Logged in as:  ${user.username}`
                     : `You are not Logged in`}
             </h4>
-            <button onClick={handleLogout}>{user ? "Logout" : "Login"}</button>
+            <button
+                style={
+                    location.pathname === "/login" ? { display: "none" } : {}
+                }
+                onClick={handleClick}
+            >
+                {user ? "Logout" : "Login"}
+            </button>
             <Outlet context={onLogin} />
         </div>
     );
