@@ -12,9 +12,7 @@ function Appointment({ appointment, removeAppointment }) {
         }
         fetch(`/appointments/${appointment.id}`, {
             method: "DELETE",
-        })
-            .then((r) => r.json())
-            .then(() => removeAppointment(appointment.id));
+        }).then(() => removeAppointment(appointment.id));
     }
 
     function handleUpdate() {
