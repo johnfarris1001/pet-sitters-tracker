@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Form, Button } from "semantic-ui-react";
 
@@ -6,6 +7,7 @@ import Appointments from "../Appointments";
 import dateString from "../../date";
 
 function NewAppointmentForm() {
+    const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
     const [sitters, setSitters] = useState([]);
@@ -16,7 +18,6 @@ function NewAppointmentForm() {
         notes: "",
         pet_id: 0,
         sitter_id: 0,
-        user_id: 0,
     });
 
     useEffect(() => {
@@ -31,20 +32,19 @@ function NewAppointmentForm() {
     }, [setPets, setSitters]);
 
     function handleNewAppointment(e) {
-        // e.preventDefault();
-        // setNewAppointmentInfo({
-        //     ...newAppointmentInfo,
-        //     user_id: user.id,
-        // });
-        // fetch(`/appointments`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(newAppointmentInfo),
-        // })
-        //     .then((r) => r.json())
-        //     .then((data) => addAppointment(data));
+        e.preventDefault();
+        const newAppointment = { ...newAppointmentInfo, user_id: user.id };
+        fetch(`/appointments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newAppointment),
+        })
+            .then((r) => r.json())
+            .then(() => {
+                navigate("/appointments");
+            });
     }
 
     const newAppointmentDisplay = {

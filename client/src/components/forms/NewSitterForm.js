@@ -48,31 +48,6 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                     }
                 />
             </Form.Field>
-            {/* <Form.Group inline>
-                <label>Has Yard At Home?</label>
-                <Form.Radio
-                    label="Yes"
-                    checked={newSitterInfo.has_home_with_yard === true}
-                    onChange={(e) =>
-                        setNewSitterInfo({
-                            ...newSitterInfo,
-                            has_home_with_yard:
-                                !newSitterInfo.has_home_with_yard,
-                        })
-                    }
-                />
-                <Form.Radio
-                    label="No"
-                    checked={newSitterInfo.has_home_with_yard === false}
-                    onChange={(e) =>
-                        setNewSitterInfo({
-                            ...newSitterInfo,
-                            has_home_with_yard:
-                                !newSitterInfo.has_home_with_yard,
-                        })
-                    }
-                />
-            </Form.Group> */}
             <Form.Select
                 label="Has Yard At Home?"
                 options={options}
