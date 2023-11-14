@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Appointment from "./Appointment";
 
@@ -8,6 +8,7 @@ import { Table } from "semantic-ui-react";
 function Appointments() {
     const { user } = useContext(UserContext);
     const [appointments, setAppointments] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         fetch("/appointments")
@@ -40,10 +41,23 @@ function Appointments() {
           })
         : null;
 
+    const newAppointmentLinkStyle = !user
+        ? { display: "none" }
+        : location.pathname === "/appointments/new"
+        ? { display: "none" }
+        : {};
+
     return (
         <div>
             <br />
-            <NavLink to="/appointments/new">New Appointment</NavLink> <br />
+            <NavLink
+                className="ui button"
+                to="/appointments/new"
+                style={newAppointmentLinkStyle}
+            >
+                New Appointment
+            </NavLink>{" "}
+            <br />
             <h2>{title}</h2>
             <Table celled structured style={style}>
                 <Table.Header>

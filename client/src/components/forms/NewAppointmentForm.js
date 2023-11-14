@@ -2,13 +2,16 @@ import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Form, Button } from "semantic-ui-react";
 
+import Appointments from "../Appointments";
+import dateString from "../../date";
+
 function NewAppointmentForm() {
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
     const [sitters, setSitters] = useState([]);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
-        start_date: new Date(),
+        start_date: dateString,
         days: 0,
         notes: "",
         pet_id: 0,
@@ -144,6 +147,8 @@ function NewAppointmentForm() {
                 />
                 <Button>Submit</Button>
             </Form>
+            <br />
+            <Appointments />
         </div>
     );
 }

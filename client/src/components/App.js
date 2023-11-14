@@ -29,6 +29,7 @@ function App() {
             fetch("/logout", {
                 method: "DELETE",
             }).then(() => setUser(null));
+            navigate("/");
         } else {
             navigate("/login");
         }
