@@ -29,6 +29,11 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
         ? { width: "50%", margin: "auto", padding: "20px", border: "solid" }
         : { display: "none" };
 
+    const options = [
+        { key: "y", text: "Yes", value: true },
+        { key: "n", text: "No", value: false },
+    ];
+
     return (
         <Form style={newSitterDisplay} onSubmit={handleNewSitter}>
             <Form.Field>
@@ -43,7 +48,7 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                     }
                 />
             </Form.Field>
-            <Form.Group inline>
+            {/* <Form.Group inline>
                 <label>Has Yard At Home?</label>
                 <Form.Radio
                     label="Yes"
@@ -67,7 +72,18 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                         })
                     }
                 />
-            </Form.Group>
+            </Form.Group> */}
+            <Form.Select
+                label="Has Yard At Home?"
+                options={options}
+                value={newSitterInfo.has_home_with_yard}
+                onChange={(e) =>
+                    setNewSitterInfo({
+                        ...newSitterInfo,
+                        has_home_with_yard: !newSitterInfo.has_home_with_yard,
+                    })
+                }
+            />
             <Form.Field>
                 <label>Phone Number: </label>
                 <input
