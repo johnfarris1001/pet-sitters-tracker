@@ -33,6 +33,10 @@ const routes = [
                 path: "/sitters",
                 element: <Sitters />,
             },
+            {
+                path: "/appointments/new",
+                element: <NewAppointmentForm />,
+            },
         ],
     },
 ];

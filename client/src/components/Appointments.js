@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Appointment from "./Appointment";
 
@@ -42,6 +43,7 @@ function Appointments() {
     return (
         <div>
             <br />
+            <NavLink to="/appointments/new">New Appointment</NavLink> <br />
             <h2>{title}</h2>
             <Table celled structured style={style}>
                 <Table.Header>
