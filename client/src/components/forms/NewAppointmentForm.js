@@ -16,7 +16,7 @@ function NewAppointmentForm() {
         notes: "",
         pet_id: 0,
         sitter_id: 0,
-        user_id: user.id,
+        user_id: 0,
     });
 
     useEffect(() => {
@@ -31,17 +31,20 @@ function NewAppointmentForm() {
     }, [setPets, setSitters]);
 
     function handleNewAppointment(e) {
-        //     e.preventDefault();
-        //     fetch(`/sitters`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify(newSitterInfo),
-        //     })
-        //         .then((r) => r.json())
-        //         .then((data) => addSitter(data));
-        //     setShowNewSitterForm(false);
+        // e.preventDefault();
+        // setNewAppointmentInfo({
+        //     ...newAppointmentInfo,
+        //     user_id: user.id,
+        // });
+        // fetch(`/appointments`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(newAppointmentInfo),
+        // })
+        //     .then((r) => r.json())
+        //     .then((data) => addAppointment(data));
     }
 
     const newAppointmentDisplay = {
@@ -78,12 +81,12 @@ function NewAppointmentForm() {
                     label="Category"
                     options={categoryOptions}
                     value={newAppointmentInfo.category}
-                    onChange={(e) =>
+                    onChange={(e) => {
                         setNewAppointmentInfo({
                             ...newAppointmentInfo,
-                            category: "Grooming",
-                        })
-                    }
+                            category: e.target.firstChild.textContent,
+                        });
+                    }}
                 />
                 <Form.Field>
                     <label>Start Date </label>
@@ -127,12 +130,16 @@ function NewAppointmentForm() {
                     label="Pet"
                     options={petOptions}
                     value={newAppointmentInfo.pet_id}
-                    onChange={(e) =>
+                    onChange={(e) => {
                         setNewAppointmentInfo({
                             ...newAppointmentInfo,
-                            pet_id: 1,
-                        })
-                    }
+                            pet_id: petOptions.filter((pet) => {
+                                return (
+                                    pet.text === e.target.firstChild.textContent
+                                );
+                            })[0].value,
+                        });
+                    }}
                 />
                 <Form.Select
                     label="Sitter"
@@ -141,7 +148,12 @@ function NewAppointmentForm() {
                     onChange={(e) =>
                         setNewAppointmentInfo({
                             ...newAppointmentInfo,
-                            sitter_id: 1,
+                            sitter_id: sitterOptions.filter((sitter) => {
+                                return (
+                                    sitter.text ===
+                                    e.target.firstChild.textContent
+                                );
+                            })[0].value,
                         })
                     }
                 />
