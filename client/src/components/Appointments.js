@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, Outlet } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Appointment from "./Appointment";
 
@@ -22,6 +22,10 @@ function Appointments() {
         });
         setAppointments(newAppointments);
     }
+
+    const addAppointment = (appointment) => {
+        setAppointments([appointment, ...appointments]);
+    };
 
     const title = user
         ? `${user.username}'s Appointments`
@@ -59,6 +63,7 @@ function Appointments() {
             </NavLink>{" "}
             <br />
             <h2>{title}</h2>
+            <Outlet context={addAppointment} />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>

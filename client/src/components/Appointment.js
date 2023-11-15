@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Table, Button } from "semantic-ui-react";
 
 function Appointment({ appointment, removeAppointment }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const navigate = useNavigate();
 
     function handleDelete() {
         if (!confirmDelete) {
@@ -14,19 +16,8 @@ function Appointment({ appointment, removeAppointment }) {
         }).then(() => removeAppointment(appointment.id));
     }
 
-    function handleUpdate() {
-        // fetch(`${server}/plants/${plant.id}`, {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         name: updateInfo.name,
-        //         variety: updateInfo.variety,
-        //     }),
-        // })
-        //     .then((r) => r.json())
-        //     .then((data) => updatePlant(data));
+    function handleUpdateClick() {
+        navigate(`/appointments/${appointment.id}/edit`);
     }
 
     return (
@@ -38,7 +29,7 @@ function Appointment({ appointment, removeAppointment }) {
             <Table.Cell>{appointment.days}</Table.Cell>
             <Table.Cell>{appointment.notes}</Table.Cell>
             <Table.Cell>
-                <Button onClick={handleUpdate}>Edit</Button>
+                <Button onClick={handleUpdateClick}>Edit</Button>
                 <Button onClick={handleDelete}>
                     {confirmDelete ? "Confirm Delete" : "Delete"}
                 </Button>

@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import Sitters from "./components/Sitters";
 import ErrorPage from "./components/ErrorPage";
 import NewAppointmentForm from "./components/forms/NewAppointmentForm";
+import EditAppointmentForm from "./components/forms/EditAppointmentForm";
 
 const routes = [
     {
@@ -24,6 +25,16 @@ const routes = [
             {
                 path: "/appointments",
                 element: <Appointments />,
+                children: [
+                    {
+                        path: "/appointments/:id/edit",
+                        element: <EditAppointmentForm />,
+                    },
+                    {
+                        path: "/appointments/new",
+                        element: <NewAppointmentForm />,
+                    },
+                ],
             },
             {
                 path: "/signup",
@@ -32,10 +43,6 @@ const routes = [
             {
                 path: "/sitters",
                 element: <Sitters />,
-            },
-            {
-                path: "/appointments/new",
-                element: <NewAppointmentForm />,
             },
         ],
     },

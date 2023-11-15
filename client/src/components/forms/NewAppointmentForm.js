@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Form, Button } from "semantic-ui-react";
 
-import Appointments from "../Appointments";
 import dateString from "../../date";
 
 function NewAppointmentForm() {
+    const addAppointment = useOutletContext();
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
@@ -42,7 +42,8 @@ function NewAppointmentForm() {
             body: JSON.stringify(newAppointment),
         })
             .then((r) => r.json())
-            .then(() => {
+            .then((data) => {
+                addAppointment(data);
                 navigate("/appointments");
             });
     }
@@ -160,7 +161,6 @@ function NewAppointmentForm() {
                 <Button>Submit</Button>
             </Form>
             <br />
-            <Appointments />
         </div>
     );
 }
