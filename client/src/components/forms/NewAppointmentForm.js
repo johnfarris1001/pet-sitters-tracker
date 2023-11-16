@@ -6,11 +6,16 @@ import { Form, Button } from "semantic-ui-react";
 import dateString from "../../date";
 
 function NewAppointmentForm() {
-    const addAppointment = useOutletContext();
+    const {
+        addAppointment,
+        sitters,
+        pets,
+        categoryOptions,
+        sitterOptions,
+        petOptions,
+    } = useOutletContext();
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
-    const [pets, setPets] = useState([]);
-    const [sitters, setSitters] = useState([]);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
         start_date: dateString,
@@ -19,17 +24,6 @@ function NewAppointmentForm() {
         pet_id: 0,
         sitter_id: 0,
     });
-
-    useEffect(() => {
-        fetch("/pets")
-            .then((resp) => resp.json())
-            .then((data) => {
-                setPets(data);
-            });
-        fetch("/sitters")
-            .then((resp) => resp.json())
-            .then((data) => setSitters(data));
-    }, [setPets, setSitters]);
 
     function handleNewAppointment(e) {
         e.preventDefault();
@@ -54,25 +48,6 @@ function NewAppointmentForm() {
         padding: "20px",
         border: "solid",
     };
-
-    const categoryOptions = [
-        { key: "1", text: "Drop-in 1/2-hr", value: "Drop-in 1/2-hr" },
-        { key: "2", text: "Drop-in 1-hr", value: "Drop-in 1-hr" },
-        { key: "3", text: "House Sit", value: "House Sit" },
-        { key: "4", text: "Walk 1/2-hr", value: "Walk 1/2-hr" },
-        { key: "5", text: "Walk 1-hr", value: "Walk 1-hr" },
-        { key: "6", text: "Boarding", value: "Boarding" },
-        { key: "7", text: "Grooming", value: "Grooming" },
-        { key: "8", text: "Play Date", value: "Play Date" },
-    ];
-
-    const petOptions = pets.map((pet) => {
-        return { key: pet.id, text: pet.name, value: pet.id };
-    });
-
-    const sitterOptions = sitters.map((sitter) => {
-        return { key: sitter.id, text: sitter.name, value: sitter.id };
-    });
 
     return (
         <div>
@@ -159,6 +134,9 @@ function NewAppointmentForm() {
                     }
                 />
                 <Button>Submit</Button>
+                <Button onClick={() => navigate("/appointments")}>
+                    Cancel
+                </Button>
             </Form>
             <br />
         </div>

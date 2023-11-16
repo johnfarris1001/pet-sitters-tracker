@@ -8,13 +8,23 @@ import { Table } from "semantic-ui-react";
 function Appointments() {
     const { user } = useContext(UserContext);
     const [appointments, setAppointments] = useState([]);
+    const [pets, setPets] = useState([]);
+    const [sitters, setSitters] = useState([]);
     const location = useLocation();
 
     useEffect(() => {
         fetch("/appointments")
             .then((resp) => resp.json())
             .then((data) => setAppointments(data));
-    }, [setAppointments]);
+        fetch("/pets")
+            .then((resp) => resp.json())
+            .then((data) => {
+                setPets(data);
+            });
+        fetch("/sitters")
+            .then((resp) => resp.json())
+            .then((data) => setSitters(data));
+    }, [setAppointments, setSitters, setPets]);
 
     function removeAppointment(id) {
         const newAppointments = appointments.filter((app) => {
@@ -51,6 +61,25 @@ function Appointments() {
         ? { display: "none" }
         : {};
 
+    const categoryOptions = [
+        { key: "1", text: "Drop-in 1/2-hr", value: "Drop-in 1/2-hr" },
+        { key: "2", text: "Drop-in 1-hr", value: "Drop-in 1-hr" },
+        { key: "3", text: "House Sit", value: "House Sit" },
+        { key: "4", text: "Walk 1/2-hr", value: "Walk 1/2-hr" },
+        { key: "5", text: "Walk 1-hr", value: "Walk 1-hr" },
+        { key: "6", text: "Boarding", value: "Boarding" },
+        { key: "7", text: "Grooming", value: "Grooming" },
+        { key: "8", text: "Play Date", value: "Play Date" },
+    ];
+
+    const petOptions = pets.map((pet) => {
+        return { key: pet.id, text: pet.name, value: pet.id };
+    });
+
+    const sitterOptions = sitters.map((sitter) => {
+        return { key: sitter.id, text: sitter.name, value: sitter.id };
+    });
+
     return (
         <div>
             <br />
@@ -63,7 +92,17 @@ function Appointments() {
             </NavLink>{" "}
             <br />
             <h2>{title}</h2>
-            <Outlet context={addAppointment} />
+            <Outlet
+                context={{
+                    addAppointment: addAppointment,
+                    appointments: appointments,
+                    sitters: sitters,
+                    pets: pets,
+                    categoryOptions: categoryOptions,
+                    sitterOptions: sitterOptions,
+                    petOptions: petOptions,
+                }}
+            />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>
