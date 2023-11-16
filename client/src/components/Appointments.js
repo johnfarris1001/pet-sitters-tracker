@@ -96,8 +96,6 @@ function Appointments() {
                 context={{
                     addAppointment: addAppointment,
                     appointments: appointments,
-                    sitters: sitters,
-                    pets: pets,
                     categoryOptions: categoryOptions,
                     sitterOptions: sitterOptions,
                     petOptions: petOptions,

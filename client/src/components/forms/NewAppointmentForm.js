@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Form, Button } from "semantic-ui-react";
@@ -6,14 +6,8 @@ import { Form, Button } from "semantic-ui-react";
 import dateString from "../../date";
 
 function NewAppointmentForm() {
-    const {
-        addAppointment,
-        sitters,
-        pets,
-        categoryOptions,
-        sitterOptions,
-        petOptions,
-    } = useOutletContext();
+    const { addAppointment, categoryOptions, sitterOptions, petOptions } =
+        useOutletContext();
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
