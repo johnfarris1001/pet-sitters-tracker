@@ -37,6 +37,17 @@ function Appointments() {
         setAppointments([appointment, ...appointments]);
     };
 
+    const editAppointment = (appointment) => {
+        const editedAppointments = appointments.map((app) => {
+            if (app.id === appointment.id) {
+                return appointment;
+            } else {
+                return app;
+            }
+        });
+        setAppointments(editedAppointments);
+    };
+
     const title = user
         ? `${user.username}'s Appointments`
         : "Log in to view Appointments";
@@ -95,6 +106,7 @@ function Appointments() {
             <Outlet
                 context={{
                     addAppointment: addAppointment,
+                    editAppointment: editAppointment,
                     appointments: appointments,
                     categoryOptions: categoryOptions,
                     sitterOptions: sitterOptions,

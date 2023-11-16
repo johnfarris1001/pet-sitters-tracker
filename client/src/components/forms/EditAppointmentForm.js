@@ -4,8 +4,13 @@ import { Form, Button } from "semantic-ui-react";
 import dateString from "../../date";
 
 function EditAppointmentForm() {
-    const { appointments, categoryOptions, sitterOptions, petOptions } =
-        useOutletContext();
+    const {
+        editAppointment,
+        appointments,
+        categoryOptions,
+        sitterOptions,
+        petOptions,
+    } = useOutletContext();
 
     const params = useParams();
     const navigate = useNavigate();
@@ -28,20 +33,28 @@ function EditAppointmentForm() {
                 start_date: appointment.start_date,
                 days: appointment.days,
                 notes: appointment.notes,
-                pet_id: appointment.pet_id,
-                sitter_id: appointment.sitter_id,
-            });
-        } else {
-            setAppointmentInfo({
-                category: "Drop-in 1/2-hr",
-                start_date: dateString,
-                days: 0,
-                notes: "",
-                pet_id: 0,
-                sitter_id: 0,
+                pet_id: appointment.pet.id,
+                sitter_id: appointment.sitter.id,
             });
         }
     }, [appointment]);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        fetch(`/appointments/${appointment.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(appointmentInfo),
+        })
+            .then((r) => r.json())
+            .then((data) => {
+                console.log(data);
+                editAppointment(data);
+                navigate("/appointments");
+            });
+    }
 
     const editAppointmentDisplay = {
         width: "50%",
@@ -54,7 +67,7 @@ function EditAppointmentForm() {
         return (
             <div>
                 <br />
-                <Form style={editAppointmentDisplay}>
+                <Form style={editAppointmentDisplay} onSubmit={handleSubmit}>
                     <Form.Select
                         label="Category"
                         options={categoryOptions}
@@ -140,6 +153,7 @@ function EditAppointmentForm() {
                         Cancel
                     </Button>
                 </Form>
+                <br />
             </div>
         );
     } else {
