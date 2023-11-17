@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Divider } from "semantic-ui-react";
 
 import dateString from "../../date";
 
@@ -45,8 +45,9 @@ function NewAppointmentForm() {
 
     return (
         <div>
-            <br />
+            <Divider />
             <Form style={newAppointmentDisplay} onSubmit={handleNewAppointment}>
+                <h3>Add New Appointment: </h3>
                 <Form.Select
                     label="Category"
                     options={categoryOptions}
@@ -132,7 +133,7 @@ function NewAppointmentForm() {
                     Cancel
                 </Button>
             </Form>
-            <br />
+            <Divider />
         </div>
     );
 }

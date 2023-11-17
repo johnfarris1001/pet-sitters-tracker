@@ -83,13 +83,25 @@ function Appointments() {
         { key: "8", text: "Play Date", value: "Play Date" },
     ];
 
-    const petOptions = pets.map((pet) => {
-        return { key: pet.id, text: pet.name, value: pet.id };
-    });
+    const petOptions = user
+        ? pets.map((pet) => {
+              return {
+                  key: pet.id,
+                  text: pet.name,
+                  value: pet.id,
+              };
+          })
+        : null;
 
-    const sitterOptions = sitters.map((sitter) => {
-        return { key: sitter.id, text: sitter.name, value: sitter.id };
-    });
+    const sitterOptions = user
+        ? sitters.map((sitter) => {
+              return {
+                  key: sitter.id,
+                  text: sitter.name,
+                  value: sitter.id,
+              };
+          })
+        : null;
 
     return (
         <div>

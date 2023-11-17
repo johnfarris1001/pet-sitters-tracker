@@ -68,6 +68,7 @@ function EditAppointmentForm() {
             <div>
                 <br />
                 <Form style={editAppointmentDisplay} onSubmit={handleSubmit}>
+                    <h3>Edit Appointment: </h3>
                     <Form.Select
                         label="Category"
                         options={categoryOptions}
