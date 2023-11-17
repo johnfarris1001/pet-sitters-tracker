@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { Button } from "semantic-ui-react";
+import { Button, Divider } from "semantic-ui-react";
 
 import "./../App.css";
 import NavBar from "./NavBar";
@@ -53,6 +53,7 @@ function App() {
             >
                 {user ? "Logout" : "Login"}
             </Button>
+            <Divider />
             <Outlet context={onLogin} />
         </div>
     );

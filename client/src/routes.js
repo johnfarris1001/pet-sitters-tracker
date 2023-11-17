@@ -1,4 +1,5 @@
 import App from "./components/App";
+import About from "./components/About";
 import Pets from "./components/Pets";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
@@ -17,6 +18,10 @@ const routes = [
             {
                 path: "/pets",
                 element: <Pets />,
+            },
+            {
+                path: "/",
+                element: <About />,
             },
             {
                 path: "/login",
