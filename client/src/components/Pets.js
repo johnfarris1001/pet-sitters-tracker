@@ -1,13 +1,13 @@
 import { useContext, useState, useEffect } from "react";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
-import { Table, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import Pet from "./Pet";
-import NewPetForm from "./forms/NewPetForm";
 
 function Pets() {
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
-    const [showNewPetForm, setShowNewPetForm] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         if (user) {
@@ -34,19 +34,29 @@ function Pets() {
           })
         : null;
 
+    const newPetLinkStyle = !user
+        ? { display: "none" }
+        : location.pathname === "/pets/new"
+        ? { display: "none" }
+        : {};
+
     return (
         <div>
             <h2>{title}</h2>
             <div style={user ? { padding: "10px" } : { display: "none" }}>
-                <Button onClick={() => setShowNewPetForm(!showNewPetForm)}>
-                    {showNewPetForm ? "Cancel" : "Add New Pet!"}
-                </Button>
+                <NavLink
+                    className="ui button"
+                    to="/pets/new"
+                    style={newPetLinkStyle}
+                >
+                    Add New Pet!
+                </NavLink>
             </div>
-            <NewPetForm
-                addPet={addPet}
-                user={user}
-                showNewPetForm={showNewPetForm}
-                setShowNewPetForm={setShowNewPetForm}
+            <Outlet
+                context={{
+                    addPet: addPet,
+                    user: user,
+                }}
             />
             <Table celled structured style={style}>
                 <Table.Header>

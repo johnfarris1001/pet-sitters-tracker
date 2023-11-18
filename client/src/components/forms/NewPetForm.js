@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { Form, Button, Divider } from "semantic-ui-react";
 
-function NewPetForm({ addPet, user, showNewPetForm, setShowNewPetForm }) {
+function NewPetForm() {
+    const { addPet, user } = useOutletContext();
+    const navigate = useNavigate();
     const [newPetInfo, setNewPetInfo] = useState({
         name: "",
         species: "",
@@ -22,17 +25,23 @@ function NewPetForm({ addPet, user, showNewPetForm, setShowNewPetForm }) {
             body: JSON.stringify(newPet),
         })
             .then((r) => r.json())
-            .then((data) => addPet(data));
-        setShowNewPetForm(false);
+            .then((data) => {
+                addPet(data);
+                navigate("/pets");
+            });
     }
 
-    const newPetDisplay = showNewPetForm
-        ? { width: "50%", margin: "auto", padding: "20px", border: "solid" }
-        : { display: "none" };
+    const newPetDisplay = {
+        width: "50%",
+        margin: "auto",
+        padding: "20px",
+        border: "solid",
+    };
 
     return (
         <div>
             <Form style={newPetDisplay} onSubmit={handleNewPet}>
+                <h3>Add New Pet:</h3>
                 <Form.Field>
                     <label>Name: </label>
                     <input

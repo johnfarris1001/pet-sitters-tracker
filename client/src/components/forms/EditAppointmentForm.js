@@ -1,6 +1,6 @@
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Divider } from "semantic-ui-react";
 import dateString from "../../date";
 
 function EditAppointmentForm() {
@@ -154,7 +154,7 @@ function EditAppointmentForm() {
                         Cancel
                     </Button>
                 </Form>
-                <br />
+                <Divider />
             </div>
         );
     } else {

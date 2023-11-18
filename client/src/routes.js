@@ -8,6 +8,7 @@ import Sitters from "./components/Sitters";
 import ErrorPage from "./components/ErrorPage";
 import NewAppointmentForm from "./components/forms/NewAppointmentForm";
 import EditAppointmentForm from "./components/forms/EditAppointmentForm";
+import NewPetForm from "./components/forms/NewPetForm";
 
 const routes = [
     {
@@ -18,6 +19,12 @@ const routes = [
             {
                 path: "/pets",
                 element: <Pets />,
+                children: [
+                    {
+                        path: "/pets/new",
+                        element: <NewPetForm />,
+                    },
+                ],
             },
             {
                 path: "/",
