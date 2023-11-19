@@ -1,12 +1,11 @@
 class AppointmentsController < ApplicationController
     def index
-        user = User.find_by(id: session[:user_id])
-        appointments = user.appointments.order(start_date: :desc)
+        appointments = current_user.appointments.order(start_date: :desc)
         render json: appointments
     end
 
     def destroy
-        appointment = Appointment.find_by(id: params[:id])
+        appointment = current_user.appointments.find_by(id: params[:id])
         if appointment
             appointment.destroy
             head :no_content
@@ -21,7 +20,7 @@ class AppointmentsController < ApplicationController
     end
 
     def update
-        appointment = Appointment.find_by(id: params[:id])
+        appointment = current_user.appointments.find_by(id: params[:id])
         if appointment
             appointment.update(appointment_params)
             render json: appointment, status: :accepted
@@ -31,6 +30,10 @@ class AppointmentsController < ApplicationController
     end
 
     private
+
+    def current_user
+        User.find_by(id: session[:user_id])
+    end
 
     def appointment_params
         params.permit(:category, :start_date, :days, :notes, :pet_id, :sitter_id, :user_id)

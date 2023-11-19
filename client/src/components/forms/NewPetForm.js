@@ -115,6 +115,7 @@ function NewPetForm() {
                     />
                 </Form.Field>
                 <Button>Submit</Button>
+                <Button onClick={() => navigate("/pets")}>Cancel</Button>
             </Form>
             <Divider />
         </div>
