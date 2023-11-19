@@ -9,7 +9,7 @@ function NewAppointmentForm() {
     const { addAppointment, categoryOptions, sitterOptions, petOptions } =
         useOutletContext();
     const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
     const { user } = useContext(UserContext);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
@@ -36,7 +36,7 @@ function NewAppointmentForm() {
                     navigate("/appointments");
                 });
             } else {
-                setError("Appointment is invalid");
+                r.json().then((data) => setErrorMessages(data.errors));
             }
         });
     }
@@ -137,14 +137,18 @@ function NewAppointmentForm() {
                 <Button onClick={() => navigate("/appointments")}>
                     Cancel
                 </Button>
-                <div style={error ? { color: "red" } : { display: "none" }}>
-                    <br />
-                    <h5>{error}</h5>
-                    <p>
-                        Must select a pet and a sitter
-                        <br />
-                        Must not have more than 7 repeat days
-                    </p>
+                <div style={{ color: "red" }}>
+                    {errorMessages.length > 0 && (
+                        <div>
+                            <br />
+                            <h5>Appointment is Invalid</h5>
+                            <ul>
+                                {errorMessages.map((error) => (
+                                    <li key={error}>{error}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </Form>
             <Divider />

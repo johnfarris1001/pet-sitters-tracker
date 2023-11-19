@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
 function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
-    const [error, setError] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
     const [newSitterInfo, setNewSitterInfo] = useState({
         name: "",
         has_home_with_yard: true,
@@ -27,7 +27,7 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                 });
                 setShowNewSitterForm(false);
             } else {
-                setError("Sitter is invalid");
+                r.json().then((data) => setErrorMessages(data.errors));
             }
         });
     }
@@ -115,14 +115,18 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                 />
             </Form.Field>
             <Button>Submit</Button>
-            <div style={error ? { color: "red" } : { display: "none" }}>
-                <br />
-                <h5>{error}</h5>
-                <p>
-                    Sitter must have a name
-                    <br />
-                    Sitter must have an address and phone number
-                </p>
+            <div style={{ color: "red" }}>
+                {errorMessages.length > 0 && (
+                    <div>
+                        <br />
+                        <h5>Sitter is Invalid</h5>
+                        <ul>
+                            {errorMessages.map((error) => (
+                                <li key={error}>{error}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         </Form>
     );
