@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
     def index
         appointments = current_user.appointments.order(start_date: :desc)
         render json: appointments
@@ -15,14 +17,14 @@ class AppointmentsController < ApplicationController
     end
 
     def create
-        appointment = Appointment.create(appointment_params)
+        appointment = Appointment.create!(appointment_params)
         render json: appointment, status: :created
     end
 
     def update
         appointment = current_user.appointments.find_by(id: params[:id])
         if appointment
-            appointment.update(appointment_params)
+            appointment.update!(appointment_params)
             render json: appointment, status: :accepted
         else
             render json: { error: "Appointment not found" }, status: :not_found
@@ -39,4 +41,7 @@ class AppointmentsController < ApplicationController
         params.permit(:category, :start_date, :days, :notes, :pet_id, :sitter_id, :user_id)
     end
 
+    def render_unprocessable_entity_response(invalid)
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+    end
 end

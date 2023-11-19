@@ -9,6 +9,7 @@ function NewAppointmentForm() {
     const { addAppointment, categoryOptions, sitterOptions, petOptions } =
         useOutletContext();
     const navigate = useNavigate();
+    const [error, setError] = useState("");
     const { user } = useContext(UserContext);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
@@ -28,12 +29,16 @@ function NewAppointmentForm() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(newAppointment),
-        })
-            .then((r) => r.json())
-            .then((data) => {
-                addAppointment(data);
-                navigate("/appointments");
-            });
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((data) => {
+                    addAppointment(data);
+                    navigate("/appointments");
+                });
+            } else {
+                setError("Appointment is invalid");
+            }
+        });
     }
 
     const newAppointmentDisplay = {
@@ -132,6 +137,15 @@ function NewAppointmentForm() {
                 <Button onClick={() => navigate("/appointments")}>
                     Cancel
                 </Button>
+                <div style={error ? { color: "red" } : { display: "none" }}>
+                    <br />
+                    <h5>{error}</h5>
+                    <p>
+                        Must select a pet and a sitter
+                        <br />
+                        Must not have more than 7 repeat days
+                    </p>
+                </div>
             </Form>
             <Divider />
         </div>
