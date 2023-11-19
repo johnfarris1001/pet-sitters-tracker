@@ -3,7 +3,7 @@ import About from "./components/About";
 import Pets from "./components/Pets";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
-import SignUp from "./components/SignUp";
+import SignUp from "./components/Signup";
 import Sitters from "./components/Sitters";
 import ErrorPage from "./components/ErrorPage";
 import NewAppointmentForm from "./components/forms/NewAppointmentForm";
