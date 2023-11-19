@@ -14,6 +14,7 @@ function EditAppointmentForm() {
 
     const params = useParams();
     const navigate = useNavigate();
+    const [errorMessages, setErrorMessages] = useState([]);
     const appointment = appointments.find(
         (app) => app.id === parseInt(params.id)
     );
@@ -47,13 +48,16 @@ function EditAppointmentForm() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(appointmentInfo),
-        })
-            .then((r) => r.json())
-            .then((data) => {
-                console.log(data);
-                editAppointment(data);
-                navigate("/appointments");
-            });
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((data) => {
+                    editAppointment(data);
+                    navigate("/appointments");
+                });
+            } else {
+                r.json().then((data) => setErrorMessages(data.errors));
+            }
+        });
     }
 
     const editAppointmentDisplay = {
@@ -153,6 +157,19 @@ function EditAppointmentForm() {
                     <Button onClick={() => navigate("/appointments")}>
                         Cancel
                     </Button>
+                    <div style={{ color: "red" }}>
+                        {errorMessages.length > 0 && (
+                            <div>
+                                <br />
+                                <h5>Appointment is Invalid</h5>
+                                <ul>
+                                    {errorMessages.map((error) => (
+                                        <li key={error}>{error}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </Form>
                 <Divider />
             </div>
