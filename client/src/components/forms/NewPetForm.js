@@ -5,6 +5,7 @@ import { Form, Button, Divider } from "semantic-ui-react";
 function NewPetForm() {
     const { addPet, user } = useOutletContext();
     const navigate = useNavigate();
+    const [error, setError] = useState("");
     const [newPetInfo, setNewPetInfo] = useState({
         name: "",
         species: "",
@@ -23,12 +24,16 @@ function NewPetForm() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(newPet),
-        })
-            .then((r) => r.json())
-            .then((data) => {
-                addPet(data);
-                navigate("/pets");
-            });
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((data) => {
+                    addPet(data);
+                    navigate("/pets");
+                });
+            } else {
+                setError("Pet is invalid");
+            }
+        });
     }
 
     const newPetDisplay = {
@@ -116,6 +121,17 @@ function NewPetForm() {
                 </Form.Field>
                 <Button>Submit</Button>
                 <Button onClick={() => navigate("/pets")}>Cancel</Button>
+                <div style={error ? { color: "red" } : { display: "none" }}>
+                    <br />
+                    <h5>{error}</h5>
+                    <p>
+                        Pet must have a name
+                        <br />
+                        Pet must be either Dog or Cat
+                        <br />
+                        Pet must have a weight
+                    </p>
+                </div>
             </Form>
             <Divider />
         </div>

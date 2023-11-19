@@ -1,7 +1,7 @@
 # Users
 
 5.times do
-    User.create(username: Faker::Name.first_name, password_digest: BCrypt::Password.create('password'))
+    User.create(username: Faker::Name.first_name, password_digest: BCrypt::Password.create('password'), admin: false)
 end
 
 # Pets
