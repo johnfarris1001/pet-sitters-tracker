@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 
 function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
+    const [error, setError] = useState("");
     const [newSitterInfo, setNewSitterInfo] = useState({
         name: "",
         has_home_with_yard: true,
@@ -19,10 +20,16 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(newSitterInfo),
-        })
-            .then((r) => r.json())
-            .then((data) => addSitter(data));
-        setShowNewSitterForm(false);
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((data) => {
+                    addSitter(data);
+                });
+                setShowNewSitterForm(false);
+            } else {
+                setError("Sitter is invalid");
+            }
+        });
     }
 
     const newSitterDisplay = showNewSitterForm
@@ -108,6 +115,15 @@ function NewSitterForm({ addSitter, showNewSitterForm, setShowNewSitterForm }) {
                 />
             </Form.Field>
             <Button>Submit</Button>
+            <div style={error ? { color: "red" } : { display: "none" }}>
+                <br />
+                <h5>{error}</h5>
+                <p>
+                    Sitter must have a name
+                    <br />
+                    Sitter must have an address and phone number
+                </p>
+            </div>
         </Form>
     );
 }
