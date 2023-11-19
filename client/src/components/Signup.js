@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { Form, Button } from "semantic-ui-react";
 
-function SignUp() {
+function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -76,4 +76,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default Signup;
