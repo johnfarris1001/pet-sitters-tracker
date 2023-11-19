@@ -11,3 +11,5 @@ On this web application you can:
 5. View a list of available sitters
 6. Book, change, and delete appointments
 7. Admin account to create and edit
+
+[Dog](https://icons8.com/icon/89539/dog) icon by [Icons8](https://icons8.com)
