@@ -30,7 +30,7 @@ function Signup() {
             <br />
             <Form
                 style={{
-                    width: "80%",
+                    width: "50%",
                     margin: "auto",
                     padding: "10px",
                     border: "solid",

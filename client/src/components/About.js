@@ -16,8 +16,11 @@ function About() {
 
     return (
         <div>
-            <h1>Pet Sitting Tracker</h1>
-            <List>{usersToDisplay}</List>
+            <h1>Pet Sitter Tracker</h1>
+            <List>
+                Current Users:
+                {usersToDisplay}
+            </List>
         </div>
     );
 }
