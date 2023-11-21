@@ -12,13 +12,15 @@ function Appointments() {
     const location = useLocation();
 
     useEffect(() => {
-        fetch("/pets")
-            .then((resp) => resp.json())
-            .then((data) => setPets(data));
-        fetch("/sitters")
-            .then((resp) => resp.json())
-            .then((data) => setSitters(data));
-    }, [setSitters, setPets]);
+        if (user) {
+            fetch("/pets")
+                .then((resp) => resp.json())
+                .then((data) => setPets(data));
+            fetch("/sitters")
+                .then((resp) => resp.json())
+                .then((data) => setSitters(data));
+        }
+    }, [setSitters, setPets, user]);
 
     function removeAppointment(id) {
         const newPets = [];
