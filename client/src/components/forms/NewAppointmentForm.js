@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
 import { Form, Button, Divider } from "semantic-ui-react";
 
 import dateString from "../../date";
@@ -10,7 +9,6 @@ function NewAppointmentForm() {
         useOutletContext();
     const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState([]);
-    const { user } = useContext(UserContext);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
         start_date: dateString,
@@ -22,13 +20,12 @@ function NewAppointmentForm() {
 
     function handleNewAppointment(e) {
         e.preventDefault();
-        const newAppointment = { ...newAppointmentInfo, user_id: user.id };
         fetch(`/appointments`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newAppointment),
+            body: JSON.stringify(newAppointmentInfo),
         }).then((r) => {
             if (r.ok) {
                 r.json().then((data) => {

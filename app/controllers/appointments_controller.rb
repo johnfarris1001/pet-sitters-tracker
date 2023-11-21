@@ -18,7 +18,7 @@ class AppointmentsController < ApplicationController
     end
 
     def create
-        appointment = Appointment.create!(appointment_params)
+        appointment = Appointment.create!(appointment_params.merge!({'user_id': current_user.id}))
         render json: appointment, status: :created
     end
 
