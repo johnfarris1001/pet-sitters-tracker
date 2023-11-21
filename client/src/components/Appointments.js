@@ -14,9 +14,7 @@ function Appointments() {
     useEffect(() => {
         fetch("/pets")
             .then((resp) => resp.json())
-            .then((data) => {
-                setPets(data);
-            });
+            .then((data) => setPets(data));
         fetch("/sitters")
             .then((resp) => resp.json())
             .then((data) => setSitters(data));

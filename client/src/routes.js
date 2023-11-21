@@ -9,6 +9,7 @@ import ErrorPage from "./components/ErrorPage";
 import NewAppointmentForm from "./components/forms/NewAppointmentForm";
 import EditAppointmentForm from "./components/forms/EditAppointmentForm";
 import NewPetForm from "./components/forms/NewPetForm";
+import NewSitterForm from "./components/forms/NewSitterForm";
 
 const routes = [
     {
@@ -55,6 +56,12 @@ const routes = [
             {
                 path: "/sitters",
                 element: <Sitters />,
+                children: [
+                    {
+                        path: "/sitters/new",
+                        element: <NewSitterForm />,
+                    },
+                ],
             },
         ],
     },

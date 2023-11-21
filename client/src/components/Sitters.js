@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Table, Button } from "semantic-ui-react";
-import NewSitterForm from "./forms/NewSitterForm";
+import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { Table } from "semantic-ui-react";
 
 function Sitters() {
     const [sitters, setSitters] = useState([]);
-    const [showNewSitterForm, setShowNewSitterForm] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         fetch("/sitters")
@@ -17,6 +17,9 @@ function Sitters() {
     }
 
     const style = { width: "80%", margin: "auto", padding: "20px" };
+
+    const newSitterLinkStyle =
+        location.pathname === "/sitters/new" ? { display: "none" } : {};
 
     const sittersToDisplay = sitters.map((sitter) => {
         return (
@@ -37,17 +40,15 @@ function Sitters() {
         <div>
             <h2>Sitters</h2>
             <div style={{ padding: "10px" }}>
-                <Button
-                    onClick={() => setShowNewSitterForm(!showNewSitterForm)}
+                <NavLink
+                    className="ui button"
+                    to="/sitters/new"
+                    style={newSitterLinkStyle}
                 >
-                    {showNewSitterForm ? "Cancel" : "Add New Sitter!"}
-                </Button>
+                    Add New Sitter!
+                </NavLink>
             </div>
-            <NewSitterForm
-                addSitter={addSitter}
-                showNewSitterForm={showNewSitterForm}
-                setShowNewSitterForm={setShowNewSitterForm}
-            />
+            <Outlet context={{ addSitter: addSitter }} />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>
