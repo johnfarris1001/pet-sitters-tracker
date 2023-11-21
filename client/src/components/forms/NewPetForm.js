@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { Form, Button, Divider } from "semantic-ui-react";
 
 function NewPetForm() {
-    const { addPet, user } = useOutletContext();
+    const { addPet } = useOutletContext();
     const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState([]);
     const [newPetInfo, setNewPetInfo] = useState({
@@ -17,13 +17,12 @@ function NewPetForm() {
 
     function handleNewPet(e) {
         e.preventDefault();
-        const newPet = { ...newPetInfo, user_id: user.id };
         fetch(`/pets`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newPet),
+            body: JSON.stringify(newPetInfo),
         }).then((r) => {
             if (r.ok) {
                 r.json().then((data) => {

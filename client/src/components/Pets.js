@@ -55,7 +55,6 @@ function Pets() {
             <Outlet
                 context={{
                     addPet: addPet,
-                    user: user,
                 }}
             />
             <Table celled structured style={style}>

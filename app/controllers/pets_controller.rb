@@ -7,7 +7,7 @@ class PetsController < ApplicationController
     end
 
     def create
-        pet = Pet.create!(pet_params)
+        pet = Pet.create!(pet_params.merge!({'user_id': current_user.id}))
         render json: pet, status: :created
     end
 
