@@ -50,7 +50,6 @@ function NewAppointmentForm() {
     if (user) {
         return (
             <div>
-                <Divider />
                 <Form
                     style={newAppointmentDisplay}
                     onSubmit={handleNewAppointment}

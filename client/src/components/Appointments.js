@@ -93,7 +93,7 @@ function Appointments() {
         ? { display: "none" }
         : location.pathname === "/appointments/new"
         ? { display: "none" }
-        : {};
+        : { padding: "10px" };
 
     const categoryOptions = [
         { key: "1", text: "Drop-in 1/2-hr", value: "Drop-in 1/2-hr" },
@@ -128,16 +128,16 @@ function Appointments() {
 
     return (
         <div>
-            <br />
-            <NavLink
-                className="ui button"
-                to="/appointments/new"
-                style={newAppointmentLinkStyle}
-            >
-                New Appointment
-            </NavLink>{" "}
-            <br />
             <h2>{title}</h2>
+            <div style={user ? { padding: "10px" } : { display: "none" }}>
+                <NavLink
+                    className="ui button"
+                    to="/appointments/new"
+                    style={newAppointmentLinkStyle}
+                >
+                    New Appointment
+                </NavLink>
+            </div>
             <Outlet
                 context={{
                     addAppointment: addAppointment,
