@@ -3,5 +3,5 @@ class User < ApplicationRecord
     validates :username, presence: true, uniqueness: true
 
     has_many :pets, dependent: :destroy
-    has_many :appointments, through: :pets
+    has_many :appointments
 end

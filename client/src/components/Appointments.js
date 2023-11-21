@@ -7,15 +7,11 @@ import { Table } from "semantic-ui-react";
 
 function Appointments() {
     const { user } = useContext(UserContext);
-    const [appointments, setAppointments] = useState([]);
     const [pets, setPets] = useState([]);
     const [sitters, setSitters] = useState([]);
     const location = useLocation();
 
     useEffect(() => {
-        fetch("/appointments")
-            .then((resp) => resp.json())
-            .then((data) => setAppointments(data));
         fetch("/pets")
             .then((resp) => resp.json())
             .then((data) => {
@@ -24,28 +20,46 @@ function Appointments() {
         fetch("/sitters")
             .then((resp) => resp.json())
             .then((data) => setSitters(data));
-    }, [setAppointments, setSitters, setPets]);
+    }, [setSitters, setPets]);
 
     function removeAppointment(id) {
-        const newAppointments = appointments.filter((app) => {
-            return app.id !== id;
+        const newPets = [];
+        pets.forEach((pet) => {
+            const apps = pet.appointments.filter((app) => {
+                return app.id !== id;
+            });
+            newPets.push({ ...pet, appointments: apps });
         });
-        setAppointments(newAppointments);
+        setPets(newPets);
     }
 
     const addAppointment = (appointment) => {
-        setAppointments([appointment, ...appointments]);
-    };
-
-    const editAppointment = (appointment) => {
-        const editedAppointments = appointments.map((app) => {
-            if (app.id === appointment.id) {
-                return appointment;
+        const newPets = pets.map((pet) => {
+            if (pet.id === appointment.pet.id) {
+                return {
+                    ...pet,
+                    appointments: [...pet.appointments, appointment],
+                };
             } else {
-                return app;
+                return pet;
             }
         });
-        setAppointments(editedAppointments);
+        setPets(newPets);
+    };
+
+    const editPetAppointment = (appointment) => {
+        const newPets = [];
+        pets.forEach((pet) => {
+            if (pet.id === appointment.pet.id) {
+                const apps = pet.appointments.filter((app) => {
+                    return app.id !== appointment.id;
+                });
+                newPets.push({ ...pet, appointments: [...apps, appointment] });
+            } else {
+                newPets.push(pet);
+            }
+        });
+        setPets(newPets);
     };
 
     const title = user
@@ -54,8 +68,17 @@ function Appointments() {
 
     const style = user ? { width: "80%", margin: "auto" } : { display: "none" };
 
+    let petApps = [];
+    if (user) {
+        pets.forEach((pet) => {
+            pet.appointments.forEach((appointment) => {
+                petApps.push(appointment);
+            });
+        });
+    }
+
     const appointmentsToDisplay = user
-        ? appointments.map((appointment) => {
+        ? petApps.map((appointment) => {
               return (
                   <Appointment
                       key={appointment.id}
@@ -118,8 +141,8 @@ function Appointments() {
             <Outlet
                 context={{
                     addAppointment: addAppointment,
-                    editAppointment: editAppointment,
-                    appointments: appointments,
+                    editAppointment: editPetAppointment,
+                    appointments: petApps,
                     categoryOptions: categoryOptions,
                     sitterOptions: sitterOptions,
                     petOptions: petOptions,
