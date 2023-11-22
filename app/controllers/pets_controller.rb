@@ -6,6 +6,11 @@ class PetsController < ApplicationController
         render json: pets
     end
 
+    def show
+        pet = current_user.pets.find(params[:id])
+        render json: pet
+    end
+
     def create
         pet = Pet.create!(pet_params.merge!({'user_id': current_user.id}))
         render json: pet, status: :created
