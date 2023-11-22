@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { Table } from "semantic-ui-react";
 
@@ -7,6 +7,7 @@ function Pets() {
     const { user } = useContext(UserContext);
     const [pets, setPets] = useState([]);
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
@@ -30,7 +31,11 @@ function Pets() {
     const petsToDisplay = user
         ? pets.map((pet) => {
               return (
-                  <Table.Row key={pet.id}>
+                  <Table.Row
+                      key={pet.id}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/pets/${pet.id}`)}
+                  >
                       <Table.Cell>{pet.name}</Table.Cell>
                       <Table.Cell>{pet.species}</Table.Cell>
                       <Table.Cell>{pet.breed}</Table.Cell>
