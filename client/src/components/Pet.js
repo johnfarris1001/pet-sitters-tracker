@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { List } from "semantic-ui-react";
+import { useParams, NavLink } from "react-router-dom";
+import { List, Divider } from "semantic-ui-react";
 import IndividualAppointments from "./IndividualAppointments";
 
 function Pet() {
@@ -12,6 +12,13 @@ function Pet() {
             .then((r) => r.json())
             .then((data) => setPet(data));
     }, [setPet, params]);
+
+    function removeAppointment(id) {
+        const newAppointments = pet.appointments.filter((app) => {
+            return app.id !== id;
+        });
+        setPet({ ...pet, appointments: newAppointments });
+    }
 
     if (!pet) {
         return <div>Loading...</div>;
@@ -29,7 +36,14 @@ function Pet() {
                         <List.Description>Notes: {pet.notes}</List.Description>
                     </List.Item>
                 </List>
-                <IndividualAppointments individual={pet} />
+                <IndividualAppointments
+                    individual={pet}
+                    removeAppointment={removeAppointment}
+                />
+                <Divider />
+                <NavLink className="ui button" to="/pets">
+                    Back to Pets
+                </NavLink>
             </div>
         );
     }

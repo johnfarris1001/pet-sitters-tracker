@@ -1,10 +1,16 @@
 import { Table } from "semantic-ui-react";
 import Appointment from "./Appointment";
 
-function IndividualAppointments({ individual }) {
+function IndividualAppointments({ individual, removeAppointment }) {
     const appointmentsToDisplay = individual.appointments
         ? individual.appointments.map((app) => {
-              return <Appointment key={app.id} appointment={app} />;
+              return (
+                  <Appointment
+                      key={app.id}
+                      appointment={app}
+                      removeAppointment={removeAppointment}
+                  />
+              );
           })
         : null;
 
