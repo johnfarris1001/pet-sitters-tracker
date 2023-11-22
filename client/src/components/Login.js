@@ -5,7 +5,7 @@ import { Form, Button } from "semantic-ui-react";
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessages, setErrorMessages] = useState([]);
     const onLogin = useOutletContext();
 
     function handleSubmit(e) {
@@ -19,20 +19,13 @@ function Login() {
                 username,
                 password,
             }),
-        })
-            .then((r) => r.json())
-            .then((user) => {
-                if (user.error) {
-                    setUsername("");
-                    setPassword("");
-                    setErrorMessage("Incorrect Username");
-                } else if (user.errors) {
-                    setPassword("");
-                    setErrorMessage("Incorrect Password");
-                } else {
-                    onLogin(user);
-                }
-            });
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((user) => onLogin(user));
+            } else {
+                r.json().then((data) => setErrorMessages(data.errors));
+            }
+        });
     }
 
     return (
@@ -64,7 +57,19 @@ function Login() {
                     />
                 </Form.Field>
                 <Button type="submit">Login</Button>
-                <h5 style={{ color: "red" }}>{errorMessage}</h5>
+                <div style={{ color: "red" }}>
+                    {errorMessages.length > 0 && (
+                        <div>
+                            <br />
+                            <h5>Invalid Login</h5>
+                            <ul>
+                                {errorMessages.map((error) => (
+                                    <li key={error}>{error}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
             </Form>
         </div>
     );
