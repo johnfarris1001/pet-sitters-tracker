@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { Table } from "semantic-ui-react";
-import Pet from "./Pet";
 
 function Pets() {
     const { user } = useContext(UserContext);
@@ -30,7 +29,16 @@ function Pets() {
 
     const petsToDisplay = user
         ? pets.map((pet) => {
-              return <Pet key={pet.id} pet={pet} />;
+              return (
+                  <Table.Row key={pet.id}>
+                      <Table.Cell>{pet.name}</Table.Cell>
+                      <Table.Cell>{pet.species}</Table.Cell>
+                      <Table.Cell>{pet.breed}</Table.Cell>
+                      <Table.Cell>{pet.weight}</Table.Cell>
+                      <Table.Cell>{pet.age}</Table.Cell>
+                      <Table.Cell>{pet.notes}</Table.Cell>
+                  </Table.Row>
+              );
           })
         : null;
 

@@ -1,6 +1,7 @@
 import App from "./components/App";
 import About from "./components/About";
 import Pets from "./components/Pets";
+import Pet from "./components/Pet";
 import Login from "./components/Login";
 import Appointments from "./components/Appointments";
 import Signup from "./components/Signup";
@@ -26,6 +27,10 @@ const routes = [
                         element: <NewPetForm />,
                     },
                 ],
+            },
+            {
+                path: "/pets/:id",
+                element: <Pet />,
             },
             {
                 path: "/",
