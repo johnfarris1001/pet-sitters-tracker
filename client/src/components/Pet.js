@@ -1,27 +1,15 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { List } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 
-function Pet() {
-    const [pet, setPet] = useState({});
-    const params = useParams();
-
-    useEffect(() => {
-        fetch(`/pets/${params.id}`)
-            .then((resp) => resp.json())
-            .then((data) => setPet(data));
-    }, [setPet]);
-
+function Pet({ pet }) {
     return (
-        <div style={{ width: "80%", margin: "auto", padding: "20px" }}>
-            <h2>{pet ? `${pet.name} the ${pet.species}` : null}</h2>
-            <List>
-                <List.Item>{`Breed: ${pet.breed}`}</List.Item>
-                <List.Item>{`Weight: ${pet.weight}`}</List.Item>
-                <List.Item>{`Age: ${pet.age}`}</List.Item>
-                <List.Description>{`Notes: ${pet.notes}`}</List.Description>
-            </List>
-        </div>
+        <Table.Row>
+            <Table.Cell>{pet.name}</Table.Cell>
+            <Table.Cell>{pet.species}</Table.Cell>
+            <Table.Cell>{pet.breed}</Table.Cell>
+            <Table.Cell>{pet.weight}</Table.Cell>
+            <Table.Cell>{pet.age}</Table.Cell>
+            <Table.Cell>{pet.notes}</Table.Cell>
+        </Table.Row>
     );
 }
 

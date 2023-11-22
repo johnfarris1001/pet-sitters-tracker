@@ -6,11 +6,6 @@ class PetsController < ApplicationController
         render json: pets
     end
 
-    def show
-        pet = current_user.pets.find(params[:id])
-        render json: pet
-    end
-
     def create
         pet = Pet.create!(pet_params.merge!({'user_id': current_user.id}))
         render json: pet, status: :created
@@ -23,7 +18,7 @@ class PetsController < ApplicationController
     end
 
     def pet_params
-        params.permit(:name, :species, :breed, :weight, :age, :notes, :user_id)
+        params.permit(:name, :species, :breed, :weight, :age, :notes)
     end
 
     def render_unprocessable_entity_response(invalid)

@@ -39,7 +39,7 @@ class AppointmentsController < ApplicationController
     end
 
     def appointment_params
-        params.permit(:category, :start_date, :days, :notes, :pet_id, :sitter_id, :user_id)
+        params.permit(:category, :start_date, :days, :notes, :pet_id, :sitter_id)
     end
 
     def render_unprocessable_entity_response(invalid)
