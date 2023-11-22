@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { List } from "semantic-ui-react";
+import IndividualAppointments from "./IndividualAppointments";
 
 function Pet() {
     const [pet, setPet] = useState({});
@@ -16,7 +18,20 @@ function Pet() {
     } else if (pet.error) {
         return <div>{pet.error}</div>;
     } else {
-        return <div>{pet.name}</div>;
+        return (
+            <div>
+                <h2>
+                    {pet.name} the {pet.species}
+                </h2>
+                <List>
+                    <List.Item>
+                        <List.Header>Breed: {pet.breed}</List.Header>
+                        <List.Description>Notes: {pet.notes}</List.Description>
+                    </List.Item>
+                </List>
+                <IndividualAppointments individual={pet} />
+            </div>
+        );
     }
 }
 
