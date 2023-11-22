@@ -1,12 +1,21 @@
 class SittersController < ApplicationController
     wrap_parameters format: []
-    skip_before_action :authorize, only: [:index, :create]
+    skip_before_action :authorize, only: [:index, :show, :create]
 
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
         sitters = Sitter.all.order(name: :asc)
         render json: sitters
+    end
+
+    def show
+        sitter = Sitter.find_by(id: params[:id])
+        if sitter
+            render json: sitter
+        else
+            render json: { error: "Sitter not found" }, status: :not_found
+        end
     end
 
     def create

@@ -33,6 +33,10 @@ function Pet() {
                 <List>
                     <List.Item>
                         <List.Header>Breed: {pet.breed}</List.Header>
+                        <List.Description>Age: {pet.age}</List.Description>
+                        <List.Description>
+                            Weight: {pet.weight}
+                        </List.Description>
                         <List.Description>Notes: {pet.notes}</List.Description>
                     </List.Item>
                 </List>

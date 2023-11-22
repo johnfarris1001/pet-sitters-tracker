@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Appointments from "./components/Appointments";
 import Signup from "./components/Signup";
 import Sitters from "./components/Sitters";
+import Sitter from "./components/Sitter";
 import ErrorPage from "./components/ErrorPage";
 import NewAppointmentForm from "./components/forms/NewAppointmentForm";
 import EditAppointmentForm from "./components/forms/EditAppointmentForm";
@@ -67,6 +68,10 @@ const routes = [
                         element: <NewSitterForm />,
                     },
                 ],
+            },
+            {
+                path: "/sitters/:id",
+                element: <Sitter />,
             },
         ],
     },

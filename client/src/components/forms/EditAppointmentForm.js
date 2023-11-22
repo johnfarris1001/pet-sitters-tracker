@@ -175,7 +175,7 @@ function EditAppointmentForm() {
             </div>
         );
     } else {
-        return <div>Loading</div>;
+        return <div>Users can only edit their own pets appointments</div>;
     }
 }
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { NavLink, useLocation, Outlet, useNavigate } from "react-router-dom";
 import { Table } from "semantic-ui-react";
 
 function Sitters() {
     const [sitters, setSitters] = useState([]);
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("/sitters")
@@ -23,7 +24,11 @@ function Sitters() {
 
     const sittersToDisplay = sitters.map((sitter) => {
         return (
-            <Table.Row key={sitter.id}>
+            <Table.Row
+                key={sitter.id}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/sitters/${sitter.id}`)}
+            >
                 <Table.Cell>{sitter.name}</Table.Cell>
                 <Table.Cell>
                     {sitter.has_home_with_yard ? "Yes" : "No"}
