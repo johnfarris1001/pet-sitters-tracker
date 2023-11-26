@@ -10,9 +10,13 @@ function About() {
             .then((data) => setUsers(data));
     }, []);
 
-    const usersToDisplay = users.map((item) => {
-        return <List.Item key={item.id}>{item.username}</List.Item>;
-    });
+    const usersToDisplay = users
+        .filter((item) => {
+            return !item.admin;
+        })
+        .map((item) => {
+            return <List.Item key={item.id}>{item.username}</List.Item>;
+        });
 
     return (
         <div>
