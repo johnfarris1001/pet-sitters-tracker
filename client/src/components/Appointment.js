@@ -10,7 +10,9 @@ function Appointment({ appointment, removeAppointment }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user.id !== appointment.pet.user_id) {
+        if (!user) {
+            setShowEditDeleteButtons(false);
+        } else if (user.id !== appointment.pet.user_id) {
             setShowEditDeleteButtons(false);
         }
     }, [user, appointment]);
