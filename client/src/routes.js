@@ -32,6 +32,12 @@ const routes = [
             {
                 path: "/pets/:id",
                 element: <Pet />,
+                children: [
+                    {
+                        path: "/pets/:id/appointments/new",
+                        element: <NewAppointmentForm />,
+                    },
+                ],
             },
             {
                 path: "/",

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Form, Button, Divider } from "semantic-ui-react";
 import { UserContext } from "../../contexts/UserContext";
@@ -6,39 +6,53 @@ import { UserContext } from "../../contexts/UserContext";
 import dateString from "../../date";
 
 function NewAppointmentForm() {
-    const { addAppointment, categoryOptions, sitterOptions, petOptions } =
-        useOutletContext();
+    const { addAppointment, categoryOptions, pet } = useOutletContext();
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
+    const [sitters, setSitters] = useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const [newAppointmentInfo, setNewAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
         start_date: dateString,
         days: 0,
         notes: "",
-        pet_id: 0,
         sitter_id: 0,
     });
 
+    useEffect(() => {
+        fetch("/sitters")
+            .then((r) => r.json())
+            .then((data) => setSitters(data));
+    }, []);
+
     function handleNewAppointment(e) {
         e.preventDefault();
+        const newAppointment = { ...newAppointmentInfo, pet_id: pet.id };
         fetch(`/appointments`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newAppointmentInfo),
+            body: JSON.stringify(newAppointment),
         }).then((r) => {
             if (r.ok) {
                 r.json().then((data) => {
                     addAppointment(data);
-                    navigate("/appointments");
+                    navigate(`/pets/${pet.id}`);
                 });
             } else {
                 r.json().then((data) => setErrorMessages(data.errors));
             }
         });
     }
+
+    const sitterOptions = sitters.map((sitter) => {
+        return {
+            key: sitter.id,
+            text: sitter.name,
+            value: sitter.id,
+        };
+    });
 
     const newAppointmentDisplay = {
         width: "50%",
@@ -54,7 +68,7 @@ function NewAppointmentForm() {
                     style={newAppointmentDisplay}
                     onSubmit={handleNewAppointment}
                 >
-                    <h3>Add New Appointment: </h3>
+                    <h3>Add New Appointment for {pet.name}: </h3>
                     <Form.Select
                         label="Category"
                         options={categoryOptions}
@@ -105,22 +119,6 @@ function NewAppointmentForm() {
                         />
                     </Form.Field>
                     <Form.Select
-                        label="Pet"
-                        options={petOptions}
-                        value={newAppointmentInfo.pet_id}
-                        onChange={(e) => {
-                            setNewAppointmentInfo({
-                                ...newAppointmentInfo,
-                                pet_id: petOptions.filter((pet) => {
-                                    return (
-                                        pet.text ===
-                                        e.target.firstChild.textContent
-                                    );
-                                })[0].value,
-                            });
-                        }}
-                    />
-                    <Form.Select
                         label="Sitter"
                         options={sitterOptions}
                         value={newAppointmentInfo.sitter_id}
@@ -137,7 +135,7 @@ function NewAppointmentForm() {
                         }
                     />
                     <Button>Submit</Button>
-                    <Button onClick={() => navigate("/appointments")}>
+                    <Button onClick={() => navigate(`/pets/${pet.id}`)}>
                         Cancel
                     </Button>
                     <div style={{ color: "red" }}>
