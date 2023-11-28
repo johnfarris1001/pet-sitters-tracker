@@ -3,7 +3,6 @@ import About from "./components/About";
 import Pets from "./components/Pets";
 import Pet from "./components/Pet";
 import Login from "./components/Login";
-import Appointments from "./components/Appointments";
 import Signup from "./components/Signup";
 import Sitters from "./components/Sitters";
 import Sitter from "./components/Sitter";
@@ -50,20 +49,6 @@ const routes = [
             {
                 path: "/login",
                 element: <Login />,
-            },
-            {
-                path: "/appointments",
-                element: <Appointments />,
-                children: [
-                    {
-                        path: "/appointments/:id/edit",
-                        element: <EditAppointmentForm />,
-                    },
-                    {
-                        path: "/appointments/new",
-                        element: <NewAppointmentForm />,
-                    },
-                ],
             },
             {
                 path: "/signup",

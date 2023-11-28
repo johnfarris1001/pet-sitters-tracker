@@ -144,12 +144,6 @@ function Pet() {
                     <Table.Body>{sittersToDisplay}</Table.Body>
                 </Table>
                 <Divider />
-                <h3>{pet.name}'s Appointments:</h3>
-                <IndividualAppointments
-                    individual={pet}
-                    removeAppointment={removeAppointment}
-                />
-                <Divider />
                 <Outlet
                     context={{
                         pet: pet,
@@ -159,6 +153,12 @@ function Pet() {
                         editAppointment: editAppointment,
                     }}
                 />
+                <h3>{pet.name}'s Appointments:</h3>
+                <IndividualAppointments
+                    individual={pet}
+                    removeAppointment={removeAppointment}
+                />
+                <Divider />
                 <NavLink
                     className="ui button"
                     to={`/pets/${params.id}/appointments/new`}

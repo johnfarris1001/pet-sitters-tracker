@@ -24,9 +24,6 @@ function NavBar() {
             <NavLink to="/sitters" style={linkStyles}>
                 Sitters
             </NavLink>
-            <NavLink to="/appointments" style={linkStyles}>
-                Appointments
-            </NavLink>
         </div>
     );
 }

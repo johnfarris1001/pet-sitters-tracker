@@ -4,11 +4,6 @@ class AppointmentsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    def index
-        appointments = current_user.appointments.order(start_date: :desc)
-        render json: appointments
-    end
-
     def destroy
         appointment = current_user.appointments.find_by(id: params[:id])
         if appointment
