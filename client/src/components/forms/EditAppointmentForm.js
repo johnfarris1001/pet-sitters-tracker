@@ -4,7 +4,7 @@ import { Form, Button, Divider } from "semantic-ui-react";
 import dateString from "../../date";
 
 function EditAppointmentForm() {
-    const { editAppointment, appointments, categoryOptions } =
+    const { editAppointment, appointments, categoryOptions, pet } =
         useOutletContext();
 
     const params = useParams();
@@ -37,7 +37,7 @@ function EditAppointmentForm() {
         fetch("/sitters")
             .then((r) => r.json())
             .then((data) => setSitters(data));
-    }, []);
+    }, [appointment]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -145,7 +145,7 @@ function EditAppointmentForm() {
                         }
                     />
                     <Button>Submit</Button>
-                    <Button onClick={() => navigate("/appointments")}>
+                    <Button onClick={() => navigate(`/pets/${pet.id}`)}>
                         Cancel
                     </Button>
                     <div style={{ color: "red" }}>

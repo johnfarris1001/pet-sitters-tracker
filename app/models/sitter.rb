@@ -5,4 +5,8 @@ class Sitter < ApplicationRecord
 
     has_many :appointments, dependent: :destroy
     has_many :pets, through: :appointments
+
+    def unique_pets
+        self.pets.uniq
+    end
 end
