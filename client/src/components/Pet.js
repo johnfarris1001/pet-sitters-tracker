@@ -166,7 +166,11 @@ function Pet() {
                 >
                     New Appointment
                 </NavLink>
-                <NavLink className="ui button" to="/pets">
+                <NavLink
+                    className="ui button"
+                    to="/pets"
+                    style={{ padding: "10px" }}
+                >
                     Back to Pets
                 </NavLink>
             </div>

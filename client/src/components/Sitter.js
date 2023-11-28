@@ -87,8 +87,19 @@ function Sitter() {
                     removeAppointment={removeAppointment}
                 />
                 <Divider />
-                <NavLink className="ui button" to="/sitters">
+                <NavLink
+                    className="ui button"
+                    to="/sitters"
+                    style={{ padding: "10px" }}
+                >
                     Back to Sitters
+                </NavLink>
+                <NavLink
+                    className="ui button"
+                    to="/pets"
+                    style={{ padding: "10px" }}
+                >
+                    Back to Pets
                 </NavLink>
             </div>
         );
