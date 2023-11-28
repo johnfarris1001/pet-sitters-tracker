@@ -28,7 +28,9 @@ function Appointment({ appointment, removeAppointment }) {
     }
 
     function handleUpdateClick() {
-        navigate(`/appointments/${appointment.id}/edit`);
+        navigate(
+            `/pets/${appointment.pet.id}/appointments/${appointment.id}/edit`
+        );
     }
 
     return (

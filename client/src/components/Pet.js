@@ -19,7 +19,7 @@ function Pet() {
         fetch(`/pets/${params.id}`)
             .then((r) => r.json())
             .then((data) => setPet(data));
-    }, [params]);
+    }, []);
 
     function removeAppointment(id) {
         const newAppointments = pet.appointments.filter((app) => {
@@ -37,7 +37,38 @@ function Pet() {
 
     const addAppoinment = (appointment) => {
         const newAppointments = [...pet.appointments, appointment];
-        setPet({ ...pet, appointments: newAppointments });
+        const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
+            return sitter.id !== appointment.sitter.id;
+        });
+        setPet({
+            ...pet,
+            unique_sitters: [...newUniqueSitters, appointment.sitter],
+            appointments: newAppointments,
+        });
+    };
+
+    const editAppointment = (appointment) => {
+        const newAppointments = pet.appointments.map((app) => {
+            if (appointment.id === app.id) {
+                return appointment;
+            } else {
+                return app;
+            }
+        });
+        const newUniqueSitters = pet.unique_sitters
+            .filter((sitter) => {
+                return newAppointments.some(
+                    (app) => app.sitter.id === sitter.id
+                );
+            })
+            .filter((sitter) => {
+                return sitter.id !== appointment.sitter.id;
+            });
+        setPet({
+            ...pet,
+            unique_sitters: [...newUniqueSitters, appointment.sitter],
+            appointments: newAppointments,
+        });
     };
 
     const categoryOptions = [
@@ -122,8 +153,10 @@ function Pet() {
                 <Outlet
                     context={{
                         pet: pet,
+                        appointments: pet.appointments,
                         categoryOptions: categoryOptions,
                         addAppointment: addAppoinment,
+                        editAppointment: editAppointment,
                     }}
                 />
                 <NavLink

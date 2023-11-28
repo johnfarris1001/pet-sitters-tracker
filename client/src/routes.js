@@ -37,6 +37,10 @@ const routes = [
                         path: "/pets/:id/appointments/new",
                         element: <NewAppointmentForm />,
                     },
+                    {
+                        path: "/pets/:id/appointments/:appid/edit",
+                        element: <EditAppointmentForm />,
+                    },
                 ],
             },
             {

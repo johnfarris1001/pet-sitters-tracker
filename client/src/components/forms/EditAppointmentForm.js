@@ -4,19 +4,15 @@ import { Form, Button, Divider } from "semantic-ui-react";
 import dateString from "../../date";
 
 function EditAppointmentForm() {
-    const {
-        editAppointment,
-        appointments,
-        categoryOptions,
-        sitterOptions,
-        petOptions,
-    } = useOutletContext();
+    const { editAppointment, appointments, categoryOptions } =
+        useOutletContext();
 
     const params = useParams();
     const navigate = useNavigate();
+    const [sitters, setSitters] = useState([]);
     const [errorMessages, setErrorMessages] = useState([]);
     const appointment = appointments.find(
-        (app) => app.id === parseInt(params.id)
+        (app) => app.id === parseInt(params.appid)
     );
     const [appointmentInfo, setAppointmentInfo] = useState({
         category: "Drop-in 1/2-hr",
@@ -38,7 +34,10 @@ function EditAppointmentForm() {
                 sitter_id: appointment.sitter.id,
             });
         }
-    }, [appointment]);
+        fetch("/sitters")
+            .then((r) => r.json())
+            .then((data) => setSitters(data));
+    }, []);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -52,7 +51,7 @@ function EditAppointmentForm() {
             if (r.ok) {
                 r.json().then((data) => {
                     editAppointment(data);
-                    navigate("/appointments");
+                    navigate(`/pets/${params.id}`);
                 });
             } else {
                 r.json().then((data) => setErrorMessages(data.errors));
@@ -66,6 +65,14 @@ function EditAppointmentForm() {
         padding: "20px",
         border: "solid",
     };
+
+    const sitterOptions = sitters.map((sitter) => {
+        return {
+            key: sitter.id,
+            text: sitter.name,
+            value: sitter.id,
+        };
+    });
 
     if (appointment) {
         return (
@@ -121,22 +128,6 @@ function EditAppointmentForm() {
                             }
                         />
                     </Form.Field>
-                    <Form.Select
-                        label="Pet"
-                        options={petOptions}
-                        value={appointmentInfo.pet_id}
-                        onChange={(e) => {
-                            setAppointmentInfo({
-                                ...appointmentInfo,
-                                pet_id: petOptions.filter((pet) => {
-                                    return (
-                                        pet.text ===
-                                        e.target.firstChild.textContent
-                                    );
-                                })[0].value,
-                            });
-                        }}
-                    />
                     <Form.Select
                         label="Sitter"
                         options={sitterOptions}
