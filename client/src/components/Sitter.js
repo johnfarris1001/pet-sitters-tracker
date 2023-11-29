@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
-import { List, Divider, Table } from "semantic-ui-react";
+import { List, Divider } from "semantic-ui-react";
 import IndividualAppointments from "./IndividualAppointments";
 
 function Sitter() {
@@ -20,23 +20,22 @@ function Sitter() {
         setSitter({ ...sitter, appointments: newAppointments });
     }
 
-    const style = { width: "80%", margin: "auto", padding: "20px" };
+    // const style = { width: "80%", margin: "auto", padding: "20px" };
 
-    console.log(sitter);
-    const petsToDisplay = sitter
-        ? sitter.unique_pets.map((pet) => {
-              return (
-                  <Table.Row key={pet.id}>
-                      <Table.Cell>{pet.name}</Table.Cell>
-                      <Table.Cell>{pet.species}</Table.Cell>
-                      <Table.Cell>{pet.breed}</Table.Cell>
-                      <Table.Cell>{pet.weight}</Table.Cell>
-                      <Table.Cell>{pet.age}</Table.Cell>
-                      <Table.Cell>{pet.notes}</Table.Cell>
-                  </Table.Row>
-              );
-          })
-        : null;
+    // const petsToDisplay = sitter
+    //     ? sitter.unique_pets.map((pet) => {
+    //           return (
+    //               <Table.Row key={pet.id}>
+    //                   <Table.Cell>{pet.name}</Table.Cell>
+    //                   <Table.Cell>{pet.species}</Table.Cell>
+    //                   <Table.Cell>{pet.breed}</Table.Cell>
+    //                   <Table.Cell>{pet.weight}</Table.Cell>
+    //                   <Table.Cell>{pet.age}</Table.Cell>
+    //                   <Table.Cell>{pet.notes}</Table.Cell>
+    //               </Table.Row>
+    //           );
+    //       })
+    //     : null;
 
     if (!sitter) {
         return <div>Loading...</div>;
@@ -67,7 +66,7 @@ function Sitter() {
                     </List.Item>
                 </List>
                 <Divider />
-                <Table celled structured style={style}>
+                {/* <Table celled structured style={style}>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Name</Table.HeaderCell>
@@ -80,7 +79,7 @@ function Sitter() {
                     </Table.Header>
                     <Table.Body>{petsToDisplay}</Table.Body>
                 </Table>
-                <Divider />
+                <Divider /> */}
                 <h3>{sitter.name}'s Appointments: </h3>
                 <IndividualAppointments
                     individual={sitter}
