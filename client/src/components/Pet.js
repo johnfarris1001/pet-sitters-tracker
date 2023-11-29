@@ -137,8 +137,8 @@ function Pet() {
                             <Table.HeaderCell>Yard At Home?</Table.HeaderCell>
                             <Table.HeaderCell>Phone Number</Table.HeaderCell>
                             <Table.HeaderCell>Address</Table.HeaderCell>
-                            <Table.HeaderCell>Dogs</Table.HeaderCell>
-                            <Table.HeaderCell>Cats</Table.HeaderCell>
+                            <Table.HeaderCell>Owned Dogs</Table.HeaderCell>
+                            <Table.HeaderCell>Owned Cats</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>{sittersToDisplay}</Table.Body>

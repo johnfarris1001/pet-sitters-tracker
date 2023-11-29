@@ -58,10 +58,10 @@ function Sitter() {
                             Address: {sitter.address}
                         </List.Description>
                         <List.Description>
-                            Dogs: {sitter.own_dogs}
+                            Owned Dogs: {sitter.own_dogs}
                         </List.Description>
                         <List.Description>
-                            Cats: {sitter.own_cats}
+                            Owned Cats: {sitter.own_cats}
                         </List.Description>
                     </List.Item>
                 </List>
