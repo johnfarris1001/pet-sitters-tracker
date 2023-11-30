@@ -1,51 +1,21 @@
-import { useState, useEffect } from "react";
 import {
     useParams,
     useNavigate,
     useLocation,
     NavLink,
     Outlet,
+    useOutletContext,
 } from "react-router-dom";
 import { List, Divider, Table } from "semantic-ui-react";
 import IndividualAppointments from "./IndividualAppointments";
 
 function Pet() {
-    const [pet, setPet] = useState(null);
+    const { addAppointment, removeAppointment, pets } = useOutletContext();
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-        fetch(`/pets/${params.id}`)
-            .then((r) => r.json())
-            .then((data) => setPet(data));
-    }, []);
-
-    function removeAppointment(id) {
-        const newAppointments = pet.appointments.filter((app) => {
-            return app.id !== id;
-        });
-        const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
-            return newAppointments.some((app) => app.sitter.id === sitter.id);
-        });
-        setPet({
-            ...pet,
-            unique_sitters: newUniqueSitters,
-            appointments: newAppointments,
-        });
-    }
-
-    const addAppoinment = (appointment) => {
-        const newAppointments = [...pet.appointments, appointment];
-        const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
-            return sitter.id !== appointment.sitter.id;
-        });
-        setPet({
-            ...pet,
-            unique_sitters: [...newUniqueSitters, appointment.sitter],
-            appointments: newAppointments,
-        });
-    };
+    const pet = pets.find((pet) => pet.id === parseInt(params.id));
 
     const editAppointment = (appointment) => {
         const newAppointments = pet.appointments.map((app) => {
@@ -64,11 +34,11 @@ function Pet() {
             .filter((sitter) => {
                 return sitter.id !== appointment.sitter.id;
             });
-        setPet({
-            ...pet,
-            unique_sitters: [...newUniqueSitters, appointment.sitter],
-            appointments: newAppointments,
-        });
+        // setPet({
+        //     ...pet,
+        //     unique_sitters: [...newUniqueSitters, appointment.sitter],
+        //     appointments: newAppointments,
+        // });
     };
 
     const categoryOptions = [
@@ -149,7 +119,7 @@ function Pet() {
                         pet: pet,
                         appointments: pet.appointments,
                         categoryOptions: categoryOptions,
-                        addAppointment: addAppoinment,
+                        addAppointment: addAppointment,
                         editAppointment: editAppointment,
                     }}
                 />

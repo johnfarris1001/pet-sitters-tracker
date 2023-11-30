@@ -26,22 +26,23 @@ const routes = [
                         path: "/pets/new",
                         element: <NewPetForm />,
                     },
+                    {
+                        path: "/pets/:id",
+                        element: <Pet />,
+                        children: [
+                            {
+                                path: "/pets/:id/appointments/new",
+                                element: <NewAppointmentForm />,
+                            },
+                            {
+                                path: "/pets/:id/appointments/:appid/edit",
+                                element: <EditAppointmentForm />,
+                            },
+                        ],
+                    },
                 ],
             },
-            {
-                path: "/pets/:id",
-                element: <Pet />,
-                children: [
-                    {
-                        path: "/pets/:id/appointments/new",
-                        element: <NewAppointmentForm />,
-                    },
-                    {
-                        path: "/pets/:id/appointments/:appid/edit",
-                        element: <EditAppointmentForm />,
-                    },
-                ],
-            },
+
             {
                 path: "/",
                 element: <About />,

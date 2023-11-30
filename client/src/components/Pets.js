@@ -23,6 +23,48 @@ function Pets() {
         setPets([...pets, newPet]);
     }
 
+    function handleAddAppoinment(appointment) {
+        const newPets = pets.map((pet) => {
+            if (pet.id === appointment.pet.id) {
+                const newAppointments = [...pet.appointments, appointment];
+                const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
+                    return sitter.id !== appointment.sitter.id;
+                });
+                return {
+                    ...pet,
+                    unique_sitters: [...newUniqueSitters, appointment.sitter],
+                    appointments: newAppointments,
+                };
+            } else {
+                return pet;
+            }
+        });
+        setPets(newPets);
+    }
+
+    function removeAppointment(id) {
+        const newPets = pets.map((pet) => {
+            if (pet.id === id) {
+                const newAppointments = pet.appointments.filter((app) => {
+                    return app.id !== id;
+                });
+                const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
+                    return newAppointments.some(
+                        (app) => app.sitter.id === sitter.id
+                    );
+                });
+                return {
+                    ...pet,
+                    unique_sitters: newUniqueSitters,
+                    appointments: newAppointments,
+                };
+            } else {
+                return pet;
+            }
+        });
+        setPets(newPets);
+    }
+
     const title = user ? `${user.username}'s Pets` : "Log in to view Pets";
     const style = user
         ? { width: "80%", margin: "auto", padding: "20px" }
@@ -69,6 +111,8 @@ function Pets() {
                 context={{
                     addPet: addPet,
                     pets: pets,
+                    addAppointment: handleAddAppoinment,
+                    removeAppointment: removeAppointment,
                 }}
             />
             <Table celled structured style={style}>
