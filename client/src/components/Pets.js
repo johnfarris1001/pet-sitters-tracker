@@ -42,11 +42,11 @@ function Pets() {
         setPets(newPets);
     }
 
-    function removeAppointment(id) {
+    function removeAppointment(appointment) {
         const newPets = pets.map((pet) => {
-            if (pet.id === id) {
+            if (pet.id === appointment.pet.id) {
                 const newAppointments = pet.appointments.filter((app) => {
-                    return app.id !== id;
+                    return app.id !== appointment.id;
                 });
                 const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
                     return newAppointments.some(

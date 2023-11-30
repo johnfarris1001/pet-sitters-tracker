@@ -24,7 +24,7 @@ function Appointment({ appointment, removeAppointment }) {
         }
         fetch(`/appointments/${appointment.id}`, {
             method: "DELETE",
-        }).then(() => removeAppointment(appointment.id));
+        }).then(() => removeAppointment(appointment));
     }
 
     function handleUpdateClick() {
