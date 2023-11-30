@@ -17,7 +17,27 @@ function Sitters() {
         setSitters([...sitters, newSitter]);
     }
 
-    const style = { width: "80%", margin: "auto", padding: "20px" };
+    function removeAppointment(appointment) {
+        const newSitters = sitters.map((sitter) => {
+            if (sitter.id === appointment.sitter.id) {
+                const newAppointments = sitter.appointments.filter((app) => {
+                    return app.id !== appointment.id;
+                });
+                return {
+                    ...sitter,
+                    appointments: newAppointments,
+                };
+            } else {
+                return sitter;
+            }
+        });
+        setSitters(newSitters);
+    }
+
+    const style =
+        location.pathname === "/sitters" || location.pathname === "/sitters/new"
+            ? { width: "80%", margin: "auto", padding: "20px" }
+            : { display: "none" };
 
     const newSitterLinkStyle =
         location.pathname === "/sitters/new" ? { display: "none" } : {};
@@ -53,7 +73,13 @@ function Sitters() {
                     Add New Sitter!
                 </NavLink>
             </div>
-            <Outlet context={{ addSitter: addSitter }} />
+            <Outlet
+                context={{
+                    addSitter: addSitter,
+                    sitters: sitters,
+                    removeAppointment: removeAppointment,
+                }}
+            />
             <Table celled structured style={style}>
                 <Table.Header>
                     <Table.Row>

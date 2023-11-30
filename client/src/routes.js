@@ -63,11 +63,11 @@ const routes = [
                         path: "/sitters/new",
                         element: <NewSitterForm />,
                     },
+                    {
+                        path: "/sitters/:id",
+                        element: <Sitter />,
+                    },
                 ],
-            },
-            {
-                path: "/sitters/:id",
-                element: <Sitter />,
             },
         ],
     },

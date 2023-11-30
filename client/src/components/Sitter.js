@@ -1,41 +1,12 @@
-import { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useOutletContext } from "react-router-dom";
 import { List, Divider } from "semantic-ui-react";
 import IndividualAppointments from "./IndividualAppointments";
 
 function Sitter() {
-    const [sitter, setSitter] = useState(null);
+    const { sitters, removeAppointment } = useOutletContext();
     const params = useParams();
 
-    useEffect(() => {
-        fetch(`/sitters/${params.id}`)
-            .then((r) => r.json())
-            .then((data) => setSitter(data));
-    }, [params]);
-
-    function removeAppointment(id) {
-        const newAppointments = sitter.appointments.filter((app) => {
-            return app.id !== id;
-        });
-        setSitter({ ...sitter, appointments: newAppointments });
-    }
-
-    // const style = { width: "80%", margin: "auto", padding: "20px" };
-
-    // const petsToDisplay = sitter
-    //     ? sitter.unique_pets.map((pet) => {
-    //           return (
-    //               <Table.Row key={pet.id}>
-    //                   <Table.Cell>{pet.name}</Table.Cell>
-    //                   <Table.Cell>{pet.species}</Table.Cell>
-    //                   <Table.Cell>{pet.breed}</Table.Cell>
-    //                   <Table.Cell>{pet.weight}</Table.Cell>
-    //                   <Table.Cell>{pet.age}</Table.Cell>
-    //                   <Table.Cell>{pet.notes}</Table.Cell>
-    //               </Table.Row>
-    //           );
-    //       })
-    //     : null;
+    const sitter = sitters.find((sitter) => sitter.id === parseInt(params.id));
 
     if (!sitter) {
         return <div>Loading...</div>;
@@ -66,20 +37,6 @@ function Sitter() {
                     </List.Item>
                 </List>
                 <Divider />
-                {/* <Table celled structured style={style}>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell>Species</Table.HeaderCell>
-                            <Table.HeaderCell>Breed</Table.HeaderCell>
-                            <Table.HeaderCell>Weight</Table.HeaderCell>
-                            <Table.HeaderCell>Age</Table.HeaderCell>
-                            <Table.HeaderCell>Notes</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>{petsToDisplay}</Table.Body>
-                </Table>
-                <Divider /> */}
                 <h3>{sitter.name}'s Appointments: </h3>
                 <IndividualAppointments
                     individual={sitter}

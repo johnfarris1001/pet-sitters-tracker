@@ -9,15 +9,6 @@ class SittersController < ApplicationController
         render json: sitters
     end
 
-    def show
-        sitter = Sitter.find_by(id: params[:id])
-        if sitter
-            render json: sitter
-        else
-            render json: { error: "Sitter not found" }, status: :not_found
-        end
-    end
-
     def create
         sitter = Sitter.create!(sitter_params)
         render json: sitter, status: :created
