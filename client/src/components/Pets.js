@@ -65,6 +65,37 @@ function Pets() {
         setPets(newPets);
     }
 
+    const editAppointment = (appointment) => {
+        const newPets = pets.map((pet) => {
+            if (pet.id === appointment.pet.id) {
+                const newAppointments = pet.appointments.map((app) => {
+                    if (appointment.id === app.id) {
+                        return appointment;
+                    } else {
+                        return app;
+                    }
+                });
+                const newUniqueSitters = pet.unique_sitters
+                    .filter((sitter) => {
+                        return newAppointments.some(
+                            (app) => app.sitter.id === sitter.id
+                        );
+                    })
+                    .filter((sitter) => {
+                        return sitter.id !== appointment.sitter.id;
+                    });
+                return {
+                    ...pet,
+                    unique_sitters: [...newUniqueSitters, appointment.sitter],
+                    appointments: newAppointments,
+                };
+            } else {
+                return pet;
+            }
+        });
+        setPets(newPets);
+    };
+
     const title = user ? `${user.username}'s Pets` : "Log in to view Pets";
     const style = user
         ? { width: "80%", margin: "auto", padding: "20px" }
@@ -113,6 +144,7 @@ function Pets() {
                     pets: pets,
                     addAppointment: handleAddAppoinment,
                     removeAppointment: removeAppointment,
+                    editAppointment: editAppointment,
                 }}
             />
             <Table celled structured style={style}>

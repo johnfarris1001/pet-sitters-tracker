@@ -10,36 +10,13 @@ import { List, Divider, Table } from "semantic-ui-react";
 import IndividualAppointments from "./IndividualAppointments";
 
 function Pet() {
-    const { addAppointment, removeAppointment, pets } = useOutletContext();
+    const { addAppointment, removeAppointment, editAppointment, pets } =
+        useOutletContext();
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
 
     const pet = pets.find((pet) => pet.id === parseInt(params.id));
-
-    const editAppointment = (appointment) => {
-        const newAppointments = pet.appointments.map((app) => {
-            if (appointment.id === app.id) {
-                return appointment;
-            } else {
-                return app;
-            }
-        });
-        const newUniqueSitters = pet.unique_sitters
-            .filter((sitter) => {
-                return newAppointments.some(
-                    (app) => app.sitter.id === sitter.id
-                );
-            })
-            .filter((sitter) => {
-                return sitter.id !== appointment.sitter.id;
-            });
-        // setPet({
-        //     ...pet,
-        //     unique_sitters: [...newUniqueSitters, appointment.sitter],
-        //     appointments: newAppointments,
-        // });
-    };
 
     const categoryOptions = [
         { key: "1", text: "Drop-in 1/2-hr", value: "Drop-in 1/2-hr" },
