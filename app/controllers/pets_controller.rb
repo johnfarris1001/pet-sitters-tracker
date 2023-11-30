@@ -8,15 +8,6 @@ class PetsController < ApplicationController
         render json: pets
     end
 
-    def show
-        pet = current_user.pets.find_by(id: params[:id])
-        if pet
-            render json: pet
-        else
-            render json: { error: "Pet not found" }, status: :not_found
-        end
-    end
-
     def create
         pet = Pet.create!(pet_params.merge!({'user_id': current_user.id}))
         render json: pet, status: :created
