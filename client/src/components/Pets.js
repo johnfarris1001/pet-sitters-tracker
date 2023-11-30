@@ -97,7 +97,10 @@ function Pets() {
     };
 
     const title = user ? `${user.username}'s Pets` : "Log in to view Pets";
-    const style = user
+
+    const style = !user
+        ? { display: "none" }
+        : location.pathname === "/pets" || location.pathname === "/pets/new"
         ? { width: "80%", margin: "auto", padding: "20px" }
         : { display: "none" };
 
