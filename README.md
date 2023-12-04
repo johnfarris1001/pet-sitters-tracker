@@ -15,4 +15,4 @@ On this web application you can:
 [Dog](https://icons8.com/icon/89539/dog) icon by [Icons8](https://icons8.com)
 
 [BlogPost](https://medium.com/@johnfarris217/changing-your-react-app-to-router-v6-from-router-v5-5c03adc55a7c)
-[Video](https://youtu.be/Dm-C_TJpnO4)
+[Video](https://youtu.be/oEY4s54HnlI)

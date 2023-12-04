@@ -26,14 +26,13 @@ function Pets() {
     function handleAddAppoinment(appointment) {
         const newPets = pets.map((pet) => {
             if (pet.id === appointment.pet.id) {
-                const newAppointments = [...pet.appointments, appointment];
                 const newUniqueSitters = pet.unique_sitters.filter((sitter) => {
                     return sitter.id !== appointment.sitter.id;
                 });
                 return {
                     ...pet,
                     unique_sitters: [...newUniqueSitters, appointment.sitter],
-                    appointments: newAppointments,
+                    appointments: [...pet.appointments, appointment],
                 };
             } else {
                 return pet;
