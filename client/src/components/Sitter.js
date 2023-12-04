@@ -50,13 +50,6 @@ function Sitter() {
                 >
                     Back to Sitters
                 </NavLink>
-                <NavLink
-                    className="ui button"
-                    to="/pets"
-                    style={{ padding: "10px" }}
-                >
-                    Back to Pets
-                </NavLink>
             </div>
         );
     }
