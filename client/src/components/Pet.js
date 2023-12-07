@@ -77,6 +77,7 @@ function Pet() {
                         <List.Description>Notes: {pet.notes}</List.Description>
                     </List.Item>
                 </List>
+                <h3>{pet.name}'s Sitters:</h3>
                 <Table celled structured style={style}>
                     <Table.Header>
                         <Table.Row>
